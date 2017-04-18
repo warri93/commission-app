@@ -1,3 +1,127 @@
+<div class="full-view has-header" id="dashboard">
+  <!-- Full-view - Header - start -->
+  <div class="view-header">
+    <div class="view-wrapper">
+      <div class="wrapper-sidebar">
+        <!-- Full-view - header-sidebar - start -->
+        <!-- Full-view - header-sidebar - end -->
+      </div>
+
+      <div class="wrapper-content">
+        <!-- Full-view - header-content - start -->
+        <h4>
+          <span id="filter_draft">Search Rules</span>
+        </h4>
+      </div>
+    </div>
+  </div>
+  <!-- Full-view - Header - end -->
+
+  <!-- Full-view - Content - start -->
+  <template #entityTemplate let-le="result" let-le="term">
+    {{le.callSign}}
+  </template>
+
+  <template #salesPersonTemplate let-sp="result" let-sp="term">
+    {{sp.firstName}} {{sp.familyName}}
+  </template>
+
+  <div class="view-content">
+    <div class="view-wrapper">
+      <div class="wrapper-content">
+
+        <div class="form-set">
+          <div class="grid-row grid-gutter gutter-top gutter-bottom">
+            <div class="col-m-3">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Legal Entity</span>
+                </div>
+                <div class="input">
+                  <input id="typeahead-search-legal-entity"
+                         type="text"
+                         class="form-control"
+                         [(ngModel)]="model.legalEntity"
+                         [ngbTypeahead]="searchLegalEntity"
+                         [resultTemplate]="entityTemplate"
+                         [inputFormatter]="formatEntity"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-3">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Customer</span>
+                </div>
+                <div class="input">
+                  <input id="typeahead-search-customer"
+                         type="text"
+                         class="form-control"
+                         [(ngModel)]="model.customer"
+                         [ngbTypeahead]="searchCustomer"
+                         [resultTemplate]="entityTemplate"
+                         [inputFormatter]="formatEntity"/>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-m-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Sales Person</span>
+                </div>
+                <div class="input">
+                  <input id="typeahead-search-sales-person"
+                         type="text"
+                         class="form-control"
+                         [(ngModel)]="model.salesperson"
+                         [ngbTypeahead]="searchSalesPerson"
+                         [resultTemplate]="salesPersonTemplate"
+                         [inputFormatter]="formatSalesPerson"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Target Date</span>
+                </div>
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="model.targetDate" ngbDatepicker
+                         #d2="ngbDatepicker" required>
+                  <div class="input-group-addon" (click)="d2.toggle()">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-2">
+              <div class="form-field-set">
+                <div class="label">
+
+                </div>
+                <div class="input">
+                  <div class="group-align-right">
+                    <button class="button button-primary button-large" (click)="search()">Apply</button>
+                    <button class="button button-primary button-large" (click)="clearAll()">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full-view - Content - end -->
+
+<!--
 <div class="row">
   <div class="col-md-8">
   <h2>Search Rules</h2>
@@ -81,3 +205,4 @@
     </table>
   </div>
 </div>
+-->

@@ -9,7 +9,7 @@ import {AssignmentRuleFormComponent} from '../app/assignment-rule-form/assignmen
 import {RefinementRuleFormComponent} from '../app/refinement-rule-form/refinement-rule-form.component';
 import {EditAssignmentComponent} from "./edit-assignment/edit-assignment.component";
 
-const appRoutes:Routes = [
+const routes:Routes = [
   {
     path: '',
     component: HomePageComponent,
@@ -41,9 +41,10 @@ const appRoutes:Routes = [
     path: 'editassignment',
     component: EditAssignmentComponent
   },
-  {path: '**', component: PageNotFoundComponentComponent}
+  {
+    path: '**',
+    component: PageNotFoundComponentComponent
+  }
 ];
 
-export const appRoutingProviders:any[] = [];
-
-export const routing:ModuleWithProviders = RouterModule.forRoot(appRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

@@ -1,4 +1,183 @@
-<div class="container">
+<div class="page-view" id="order_form">
+
+  <!-- Page-view - Header - start -->
+  <div class="view-header">
+    <div class="view-wrapper">
+      <div class="wrapper-content">
+
+        <!-- Order header - start -->
+        <div class="group-align-right">
+          <button class="button button-white-outline" id="button_cancel" title="Cancel" tabindex="5"><i
+            class="fa fa-ban"></i> Cancel
+          </button>
+
+          <button class="button button-white-outline action-primary" id="button_save" tabindex="5"><i
+            class="fa fa-floppy-o"></i> Save
+          </button>
+
+          <button class="button button-default action-primary" id="button_confirm" tabindex="5"><i
+            class="blue-Checked"></i> Confirm
+          </button>
+        </div>
+        <!-- Order header - end -->
+
+        <!-- Actions toolbar - start -->
+
+        <!-- Actions toolbar - end -->
+
+      </div>
+      <!-- <div class="wrapper-sidebar"></div> -->
+    </div>
+  </div>
+  <!-- Page-view - Header - end -->
+
+  <!-- Page-view - Content - start -->
+  <div class="view-content">
+    <div class="view-wrapper">
+      <div class="wrapper-content">
+        <!-- General content - start -->
+
+        <!-- Warnings & Errors frontend - start -->
+
+        <!-- Warnings & Errors frontend - end -->
+
+        <!-- Primairy content - start -->
+        <form name="orderForm.orderForm" novalidate autocomplete="off">
+
+          <template #entityTemplate let-le="result" let-le="term">
+            {{le.callSign}}
+          </template>
+
+          <template #salesPersonTemplate let-sp="result" let-sp="term">
+            {{sp.firstName}} {{sp.familyName}}
+          </template>
+
+          <div class="content-panel panel-default panel-open">
+            <div class="header clearfix">
+              <h2><i class="blue-Info"></i>General info</h2>
+            </div>
+            <div class="content">
+
+              <div class="form-set">
+                <div class="grid-row grid-gutter gutter-top gutter-bottom">
+                  <div class="col-m-12">
+                    <!-- Legal : Start -->
+                    <div class="grid-row grid-gutter">
+                      <div class="col-m-4 col-l-4 offset-2">
+                        <div class="form-field-set">
+                          <div class="label">
+                            <span>Legal Entity</span>
+                          </div>
+                          <div class="input">
+                            <input id="typeahead-search-legal-entity"
+                                   name="legalEntity"
+                                   type="text"
+                                   class="form-control"
+                                   [(ngModel)]="legalEntity"
+                                   [ngbTypeahead]="searchLegalEntity"
+                                   [resultTemplate]="entityTemplate"
+                                   [inputFormatter]="formatEntity"/>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-m-4 col-l-4">
+                        <div class="form-field-set">
+                          <div class="label">
+                            <span>Customer</span>
+                          </div>
+                          <div class="input">
+                            <input id="typeahead-search-customer"
+                                   name="customer"
+                                   type="text"
+                                   class="form-control"
+                                   [(ngModel)]="customer"
+                                   [ngbTypeahead]="searchCustomer"
+                                   [resultTemplate]="entityTemplate"
+                                   [inputFormatter]="formatEntity"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Legal : End -->
+
+                    <!-- Customer : Start -->
+                    <div class="grid-row grid-gutter">
+                      <div class="col-m-2 col-l-2 offset-2">
+                        <div class="form-field-set">
+                          <div class="label">
+                            <span>Valid Period From</span>
+                          </div>
+                          <div class="input">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="validDateFromDatePicker" [(ngModel)]="validDateFrom" ngbDatepicker
+                                     #validDateFromDatePicker="ngbDatepicker" required>
+                              <div class="input-group-addon" (click)="validDateFromDatePicker.toggle()">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-m-2 col-l-2">
+                        <div class="form-field-set">
+                          <div class="label">
+                            <span>Valid Period To</span>
+                          </div>
+                          <div class="input">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="validDateToDatePicker" [(ngModel)]="validDateTo" ngbDatepicker
+                                     #validDateToDatePicker="ngbDatepicker" required>
+                              <div class="input-group-addon" (click)="validDateToDatePicker.toggle()">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-m-4 col-l-4">
+                      <div class="form-field-set">
+                        <div class="label">
+                          <span>Order Owner</span>
+                        </div>
+                        <div class="input">
+                          <input id="typeahead-order-owner"
+                                 name="orderOwner"
+                                 type="text"
+                                 class="form-control"
+                                 [(ngModel)]="orderOwner"
+                                 [ngbTypeahead]="searchOrderOwner"
+                                 [resultTemplate]="orderOwnerTemplate"
+                                 [inputFormatter]="formatOrderOwner"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <!-- Customer : End -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" id="is_processing"/>
+        </form>
+        <!-- Primairy content - end -->
+
+        <!-- General content - end -->
+
+      </div>
+      <!-- <div class="wrapper-sidebar"></div> -->
+    </div>
+  </div>
+  <!-- Page-view - Content - end -->
+</div>
+
+
+<!--<div class="container">
   <div class="row">
     <div class="col-xs-12">
       <div class="margin-20">
@@ -62,3 +241,4 @@
     </div>
   </div>
 </div>
+-->

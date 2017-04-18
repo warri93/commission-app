@@ -13,6 +13,8 @@ import { PeriodImpl } from "../models/period-impl";
 import { AssigneeImpl } from "../models/assignee-impl";
 import { SalesPersonImpl } from "../models/sales-person-impl";
 
+import {Observable} from 'rxjs/Observable';
+
 @Component({
   selector: 'assignment-rule-form',
   templateUrl: './assignment-rule-form.component.html',
@@ -21,21 +23,8 @@ import { SalesPersonImpl } from "../models/sales-person-impl";
 export class AssignmentRuleFormComponent implements OnInit {
   public errorMessage;
   public createResponse;
-  entities : RavagoEntityImpl[] = [new RavagoEntityImpl("533714","MUEHLSTEIN"),new RavagoEntityImpl("597612","MUEHLSTEIN CA"),new RavagoEntityImpl("515785","CPA")];
-  customers : CustomerImpl[] = [
-    new CustomerImpl("587505","CHANNEL PRIME ALLIANCE CANADA"),
-    new CustomerImpl("515785","CHANNEL PRIME ALLIANCE "),
-    new CustomerImpl("634632","QUALITY RESIN SOLUTIONS"),
-    new CustomerImpl("553932","ABM NORTH AMERICA CORP"),
-    new CustomerImpl("630133","ABSA RESIN TECHNOLOGIES INC"),
-    new CustomerImpl("630146","AIR MOLDED PLASTICS"),
-    new CustomerImpl("630150","ALLIANCE HANGER INC"),
-    new CustomerImpl("630254","CRAWLING VALLEY PLASTICS LIMITED"),
-    new CustomerImpl("630166","AMPACET CANADA COMPANY"),
-    new CustomerImpl("630173","APOLLO HEALTH AND BEAUTY CARE"),
-    new CustomerImpl("630178","ARMAGEDON GLOBAL ENERGY SOLUTIONS CORP"),
-    new CustomerImpl("630180","ARMTEC LIMITED PARTNERSHIP")
-  ]
+  entities : RavagoEntityImpl[];
+  customers : CustomerImpl[];
   public createForm : FormGroup;
 
   constructor(private commissionService:CommissionBackEndService,private masterDataService :MasterDataService, private _fb: FormBuilder) {
@@ -43,6 +32,27 @@ export class AssignmentRuleFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.entities = [
+      new RavagoEntityImpl("533714","MUEHLSTEIN"),
+      new RavagoEntityImpl("597612","MUEHLSTEIN CA"),
+      new RavagoEntityImpl("515785","CPA")
+    ];
+
+    this.customers = [
+      new CustomerImpl("587505","CHANNEL PRIME ALLIANCE CANADA"),
+      new CustomerImpl("515785","CHANNEL PRIME ALLIANCE "),
+      new CustomerImpl("634632","QUALITY RESIN SOLUTIONS"),
+      new CustomerImpl("553932","ABM NORTH AMERICA CORP"),
+      new CustomerImpl("630133","ABSA RESIN TECHNOLOGIES INC"),
+      new CustomerImpl("630146","AIR MOLDED PLASTICS"),
+      new CustomerImpl("630150","ALLIANCE HANGER INC"),
+      new CustomerImpl("630254","CRAWLING VALLEY PLASTICS LIMITED"),
+      new CustomerImpl("630166","AMPACET CANADA COMPANY"),
+      new CustomerImpl("630173","APOLLO HEALTH AND BEAUTY CARE"),
+      new CustomerImpl("630178","ARMAGEDON GLOBAL ENERGY SOLUTIONS CORP"),
+      new CustomerImpl("630180","ARMTEC LIMITED PARTNERSHIP")
+    ];
+
     this.createForm = this._fb.group(
       {
         legalEntity: ['', [Validators.required, Validators.minLength(5)]],
@@ -93,7 +103,7 @@ export class AssignmentRuleFormComponent implements OnInit {
   public salesPersons : SalesPerson[];
   model : AssignmentRule = new AssignmentRuleImpl();
 
-  get diagnostic() { return JSON.stringify(this.model); }
+  private diagnostic() { return JSON.stringify(this.model); }
 
   public fillSalesPersons(){
     var le = this.createForm.get('legalEntity').value;
@@ -112,4 +122,26 @@ export class AssignmentRuleFormComponent implements OnInit {
       selectSalesVolume : ['']
     });
   }
+
+  searchLegalEntity = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => term.length < 2 ? []
+        : this.entities.filter(v =>
+          v.callSign.toLowerCase().startsWith(term.toLocaleLowerCase()) ||
+          v.reference.toLowerCase().startsWith(term.toLocaleLowerCase())
+        ).splice(0, 10));
+
+  searchCustomer = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => term.length < 2 ? []
+        : this.customers.filter(v =>
+          v.callSign.toLowerCase().startsWith(term.toLocaleLowerCase()) ||
+          v.reference.toLowerCase().startsWith(term.toLocaleLowerCase())
+        ).splice(0, 10));
+
+  formatEntity = (x: {callSign: string}) => x.callSign;
 }

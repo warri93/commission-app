@@ -11,5 +11,9 @@ export class SearchCriteria {
   targetDate : string ="";
 
   constructor(){
+    this.legalEntity = null;
+    this.customer = null;
+    this.salesperson = null;
+    this.targetDate = null;
   }
 }
