@@ -1,3 +1,90 @@
+<div class="full-view has-header" id="dashboard">
+  <!-- Full-view - Header - start -->
+  <div class="view-header">
+    <div class="view-wrapper">
+      <div class="wrapper-sidebar">
+        <!-- Full-view - header-sidebar - start -->
+        <!-- Full-view - header-sidebar - end -->
+      </div>
+
+      <div class="wrapper-content">
+        <!-- Full-view - header-content - start -->
+        <h4>
+          <span id="filter_draft">Search Assignments</span>
+        </h4>
+      </div>
+    </div>
+  </div>
+  <!-- Full-view - Header - end -->
+
+  <!-- Full-view - Content - start -->
+  <template #entityTemplate let-le="result" let-le="term">
+    {{le.callSign}}
+  </template>
+
+  <template #salesPersonTemplate let-sp="result" let-sp="term">
+    {{sp.firstName}} {{sp.familyName}}
+  </template>
+
+  <div class="view-content">
+    <div class="view-wrapper">
+      <div class="wrapper-content">
+
+        <div class="form-set">
+          <div class="grid-row grid-gutter gutter-top gutter-bottom">
+            <div class="col-m-3">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Salesorder ID</span>
+                </div>
+                <div class="input">
+                  <input id="input-sales-order-id"
+                         type="text"
+                         class="form-control"
+                         [(ngModel)]="orderNumber"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-3">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Salesorder Line</span>
+                </div>
+                <div class="input">
+                  <input id="input-sales-order-line"
+                         type="text"
+                         class="form-control"
+                         [(ngModel)]="orderLineNumber"/>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-m-2 offset-4">
+              <div class="form-field-set">
+                <div class="label">
+
+                </div>
+                <div class="input">
+                  <div class="group-align-right">
+                    <button class="button button-primary button-large">Search</button>
+                    <button class="button button-primary button-large">Relink</button>
+                    <button class="button button-primary button-large">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full-view - Content - end -->
+
+<!--
 <div class="row">
   <div class="col-md-8">
     <h2>Search Assignments</h2>
@@ -66,3 +153,4 @@
     </table>
   </div>
 </div>
+-->
