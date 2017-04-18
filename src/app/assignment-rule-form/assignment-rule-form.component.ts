@@ -25,6 +25,7 @@ export class AssignmentRuleFormComponent implements OnInit {
   public createResponse;
   entities : RavagoEntityImpl[];
   customers : CustomerImpl[];
+  salesPersons: SalesPerson[] = [];
   public createForm : FormGroup;
 
   constructor(private commissionService:CommissionBackEndService,private masterDataService :MasterDataService, private _fb: FormBuilder) {
@@ -52,6 +53,12 @@ export class AssignmentRuleFormComponent implements OnInit {
       new CustomerImpl("630178","ARMAGEDON GLOBAL ENERGY SOLUTIONS CORP"),
       new CustomerImpl("630180","ARMTEC LIMITED PARTNERSHIP")
     ];
+
+    /*this.masterDataService.getSalesPersons(le.reference,cu.reference).subscribe(
+      salesPersons => this.salesPersons = salesPersons,
+      err => this.errorMessage = err,
+      () => console.log("Done getting  : " + JSON.stringify(this.salesPersons))
+    );*/
 
     this.createForm = this._fb.group(
       {
@@ -100,7 +107,6 @@ export class AssignmentRuleFormComponent implements OnInit {
     );
   }
 
-  public salesPersons : SalesPerson[];
   model : AssignmentRule = new AssignmentRuleImpl();
 
   private diagnostic() { return JSON.stringify(this.model); }
@@ -144,4 +150,14 @@ export class AssignmentRuleFormComponent implements OnInit {
         ).splice(0, 10));
 
   formatEntity = (x: {callSign: string}) => x.callSign;
+
+  searchSalesPerson = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => term.length < 2 ? []
+        : this.customers.filter(v =>
+          v.callSign.toLowerCase().startsWith(term.toLocaleLowerCase()) ||
+          v.reference.toLowerCase().startsWith(term.toLocaleLowerCase())
+        ).splice(0, 10));
 }

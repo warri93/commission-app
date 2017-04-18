@@ -138,22 +138,20 @@
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="col-m-4 col-l-4">
-                      <div class="form-field-set">
-                        <div class="label">
-                          <span>Order Owner</span>
-                        </div>
-                        <div class="input">
-                          <input id="typeahead-order-owner"
-                                 name="orderOwner"
-                                 type="text"
-                                 class="form-control"
-                                 [(ngModel)]="orderOwner"
-                                 [ngbTypeahead]="searchOrderOwner"
-                                 [resultTemplate]="orderOwnerTemplate"
-                                 [inputFormatter]="formatOrderOwner"/>
+                      <div class="col-m-4 col-l-4">
+                        <div class="form-field-set">
+                          <div class="label">
+                            <span>Order Owner</span>
+                          </div>
+                          <div class="input">
+                            <input id="typeahead-order-owner"
+                                   name="orderOwner"
+                                   type="text"
+                                   class="form-control"
+                                   [disabled]="!legalEntity || !customer"
+                                   [(ngModel)]="salesPerson"/>
+                          </div>
                         </div>
                       </div>
                     </div>
