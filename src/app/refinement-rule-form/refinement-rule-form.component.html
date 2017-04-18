@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="margin-20">
+        <h4>Create Refinement rule</h4>
+        <div  *ngIf="response" class="alert alert-success alert-dismissable" role="alert">
+            {{ response.status }}
+            {{ response.statusText}}
+        </div>
+        <div  *ngIf="errorMessage" class="alert alert-danger alert-dismissable" role="alert">
+            {{ errorMessage}}
+        </div>
+      </div>
+      <form [formGroup]="createRefinementForm" novalidate (ngSubmit)="create()">
+        <div class="form-group">
+          <button type="button" class="btn btn-danger" (click)="addPeriod()">Add Period</button>
+          <button type="button" class="btn btn-danger" (click)="fillSalesPersons()">Load Salesreps</button>
+          <button type="button" class="btn btn-danger" (click)="fillDeliveryAddresses()">Load Addresses</button>
+        </div>
+        <div class="form-group">
+          <label>Default Rule</label>
+          <select class="form-control" formControlName="defaultRules" data-value="">
+            <option *ngFor="let rule of rules" [ngValue]="rule">
+              {{ rule.ravagoEntity.reference}} - {{ rule.ravagoEntity.callSign}} / {{rule.customer.reference}} -
+              {{rule.customer.callSign}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Product ID</label>
+          <input type="text" formControlName="productID" />
+        </div>
+        <div class="form-group">
+          <label>DeliveryAddress</label>
+          <select class="form-control" formControlName="deliveryAddresses" data-value="">
+            <option *ngFor="let address of addresses" [ngValue]="address">
+              {{ address.addressLine}} {{address.addressName}}
+            </option>
+          </select>
+        </div>
+        <div formArrayName="periods">
+          <div *ngFor="let period of createRefinementForm.controls.periods.controls; let i=index"
+               class="panel panel-default">
+            <div class="panel-heading">
+              <span>Period {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right"
+                    *ngIf="createRefinementForm.controls.periods.controls.length > 1" (click)="removeAddress(i)"></span>
+            </div>
+            <div class="panel-body" [formGroupName]="i">
+              <app-refinement-period [salespersonlist]="salesPersons" [periodGroup]="period"></app-refinement-period>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-20">
+          <button type="submit" class="btn btn-primary pull-right">Create Rule</button>
+        </div>
+        <div class="clearfix"></div>
+        <div class="margin-20">
+          <!--
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{createRefinementForm.valid | json}}</pre>
+          <pre>form value: <br>{{createRefinementForm.value | json}}</pre>
+          -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

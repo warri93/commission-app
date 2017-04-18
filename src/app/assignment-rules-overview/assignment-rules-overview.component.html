@@ -1,0 +1,26 @@
+<table class="table table-bordered">
+      <thead>
+      <tr>
+        <th># id</th>
+        <th>Legal Entity</th>
+        <th>Customer</th>
+        <th>Period(s)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rule of rules">
+        <th scope="row"><a routerLink="/rule/{{ rule.defaultAssignmentRuleID }}">{{ rule.defaultAssignmentRuleID }}</a></th>
+        <td>{{ rule.ravagoEntity.callSign}}</td>
+        <td>{{ rule.customer.callSign }}</td>
+        <td>
+            <table>
+            <tr *ngFor="let assignment of rule.assignmentValues">
+                <td>{{ assignment.period.startDate}}</td>
+                <td> &nbsp; - &nbsp; </td>
+                <td> {{ assignment.period.endDate }}</td>
+            </tr>
+            </table>
+        </td>
+      </tr>
+      </tbody>
+</table>

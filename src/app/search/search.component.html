@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-8">
+  <h2>Search Rules</h2>
+
+  <form>
+    <div class="form-group">
+      <label style="width: 100px" for="le">Legal Entity</label>
+      <select style="width: 150px" name="le" id="le" [(ngModel)]="currentLegalEntity">
+        <option *ngFor="let entity of entities" [ngValue]="entity">
+          {{ entity.reference}} : {{entity.callSign}}
+        </option>
+      </select>
+      <button (click)="addLegalEntity()">Add Legal Entity</button>
+      <li *ngFor="let item of model.legalEntity">
+        {{ item.reference }} {{ item.callSign }}
+      </li>
+    </div>
+    <div class="form-group">
+      <label style="width: 100px" for="customer">Customer</label>
+      <select style="width: 150px" name="customer" id="customer" [(ngModel)]="currentCustomer">
+        <option *ngFor="let customer of customers" [ngValue]="customer">
+          {{customer.callSign}}
+        </option>
+      </select>
+      <button (click)="addCustomer()">Add Customer</button>
+      <li *ngFor="let item of model.customer">
+        {{ item.reference }} {{ item.callSign }}
+      </li>
+    </div>
+    <div class="form-group">
+      <label style="width: 100px" for="customer">Salespersons</label>
+      <select  style="width: 150px" name="salesperson" id="salesperson" [(ngModel)]="currentSalesperson">
+        <option *ngFor="let salesperson of salespersons" [ngValue]="salesperson">
+          {{salesperson.familyName}} {{ salesperson.firstName }}
+        </option>
+      </select>
+      <button (click)="addSalesPerson()">Add SalesPerson</button>
+      <li *ngFor="let item of model.salesperson">
+        {{ item.reference }} - {{ item.familyName }} - {{ item.firstName }}
+      </li>
+    </div>
+    <div class="form-group">
+      <label for="targetdate">TargetDate</label>
+      <input type="date" id="targetdate" name="targetdate" [(ngModel)]="currentTargetDate">
+      <button (click)="addTargetDate()">Add Date</button>
+      {{ model.targetDate }}
+    </div>
+    <button type="submit" (click)="search()" class="btn btn-default">Search</button>
+    <button class="btn btn-danger" (click)="clearAll()">Clear search </button>
+  </form>
+   </div>
+</div>
+<div class="row" style="margin-top: 30px;">
+  <div class="col-md-12">
+      <h2>Search results</h2>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th># id</th>
+        <th>Legal Entity</th>
+        <th>Customer</th>
+        <th>Period(s)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rule of results">
+        <th scope="row"><a routerLink="/rule/{{ rule.defaultAssignmentRuleID }}">{{ rule.defaultAssignmentRuleID }}</a></th>
+        <td>{{ rule.ravagoEntity.callSign}}</td>
+        <td>{{ rule.customer.callSign }}</td>
+        <td>
+          <table>
+            <tr *ngFor="let assignment of rule.assignmentValues">
+              <td>{{ assignment.period.startDate}}</td>
+              <td> &nbsp; - &nbsp; </td>
+              <td> {{ assignment.period.endDate }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

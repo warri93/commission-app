@@ -1,0 +1,99 @@
+<div class="row" *ngIf="dataLoaded > 0">
+  <div class="col-md-12">
+    <p>
+      <button (click)="gotoOverview()">Back</button>
+    </p>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th># id</th>
+        <th>Legal Entity</th>
+        <th>Customer</th>
+        <th>Period(s)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ rule.defaultAssignmentRuleID }}</td>
+        <td>{{ rule.ravagoEntity.callSign}}</td>
+        <td>{{ rule.customer.callSign }}</td>
+        <td>
+          <table class="table">
+            <tr *ngFor="let assignment of rule.assignmentValues">
+              <td>{{ assignment.period.startDate | date:"dd/MM/yyyy"}}</td>
+              <td> &nbsp; - &nbsp; </td>
+              <td> {{ assignment.period.endDate | date:"dd/MM/yyyy"}}</td>
+              <table class="table table-bordered table-striped" style="width: 100%">
+                <tr>
+                  <th>Volume%</th>
+                  <th>Commission%</th>
+                  <th colspan="2">Sales person</th>
+                </tr>
+                <tr *ngFor="let assignee of assignment.assignees">
+                  <td>{{ assignee.salesVolumePercentage}}%</td>
+                  <td> {{ assignee.commissionPercentage }}%</td>
+                  <td> {{ assignee.salesPerson.firstName}}</td>
+                  <td> {{ assignee.salesPerson.familyName}}</td>
+                </tr>
+              </table>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="dataRefinementLoaded > 0">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th title="">Adres</th>
+        <th title="">ProductSpecificaties</th>
+        <th title="">Waarden</th>
+      </tr>
+      </thead>
+      <tr *ngFor="let refinement of refinementRules" style="vertical-align: top">
+        <td>
+          {{ refinement?.destinationAddress?.addressName}}<br>
+          {{ refinement?.destinationAddress?.addressLine}}<br>
+          {{ refinement?.destinationAddress?.addressLine2}}<br>
+          {{ refinement?.destinationAddress?.cityName}}<br>
+          {{ refinement?.destinationAddress?.country?.identificationCode}}
+        </td>
+        <td>
+          "productID : " {{ refinement?.productSpecification?.productID}}<br>
+          "productType : " {{ refinement?.productSpecification?.productType?.description}}<br>
+          "productFamily : "{{ refinement?.productSpecification?.productFamily?.description}}<br>
+          "productSubgroup : "{{ refinement?.productSpecification?.productSubgroup?.description}}<br>
+          "productProducer : "{{ refinement?.productSpecification?.productProducer?.description}}<br>
+          "productBrand : " {{ refinement?.productSpecification?.productBrand?.description}}<br>
+        </td>
+        <td>
+          <table class="table">
+            <tr *ngFor="let assignment of refinement?.assignmentValues" style="vertical-align: top">
+              <td>{{ assignment.period.startDate | date:"dd/MM/yyyy"}}</td>
+              <td> {{ assignment.period.endDate | date:"dd/MM/yyyy"}}</td>
+              <td>
+                <table class="table table-bordered table-striped">
+                  <tr>
+                    <th>Volume%</th>
+                    <th>Commission%</th>
+                    <th>Sales person</th>
+                  </tr>
+                  <tr *ngFor="let assignee of assignment.assignees">
+                    <td>{{ assignee.salesVolumePercentage}}%</td>
+                    <td> {{ assignee.commissionPercentage }}%</td>
+                    <td> {{ assignee.salesPerson.firstName}}</td>
+                    <td> {{ assignee.salesPerson.familyName}}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

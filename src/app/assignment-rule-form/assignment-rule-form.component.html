@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="margin-20">
+        <h4>Create Default rule</h4>
+        <h2>{{ errorMessage}}</h2>
+        <h2>{{ createResponse }}</h2>
+      </div>
+      <form [formGroup]="createForm" novalidate (ngSubmit)="save(createForm)">
+        <div class="form-group">
+          <label>Legal Entity</label>
+          <small *ngIf="!createForm.controls.legalEntity.valid" class="text-danger">
+            Legal Entity is required (minimum 5 characters).
+          </small>
+          <select class="form-control" formControlName="legalEntity" data-value="">
+            <option *ngFor="let entity of entities" [ngValue]="entity">
+              {{ entity.reference}} {{entity.callSign}}
+            </option>
+          </select>
+          <label>Customer</label>
+          <select class="form-control" formControlName="customer" (loadeddata)="fillSalesPersons()" data-value="">
+            <option *ngFor="let customer of customers" [ngValue]="customer">
+              {{ customer.reference }} {{customer.callSign}}
+            </option>
+          </select>
+          <small *ngIf="!createForm.controls.customer.valid" class="text-danger">
+           Customer is required.
+          </small>
+          </div>
+        <div class="form-group">
+          <label for="startDate">StartDate</label>
+          <input id="startDate" type="date" formControlName="startDate" />
+          <label for="endDate">EndData</label>
+          <input type="date" id="endDate" formControlName="endDate"/>
+        </div>
+        <div formArrayName="salespersons">
+          <div *ngFor="let salesperson of createForm.controls.salespersons.controls; let i=index" class="panel panel-default">
+            <div class="panel-heading">
+              <span>Salesperson {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="createForm.controls.salespersons.controls.length > 1" (click)="removeAddress(i)"></span>
+            </div>
+            <div class="panel-body" [formGroupName]="i">
+              <app-sales-person [salespersonlist]="salesPersons" [group]="createForm.controls.salespersons.controls[i]"></app-sales-person>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-20">
+          <button type="button" class="btn btn-danger" (click)="addSalesPerson()">Add Salesreps</button>
+          <button type="button" class="btn btn-danger" (click)="fillSalesPersons()">Load Salesreps</button>
+        </div>
+        <div class="margin-20">
+          <button type="submit" class="btn btn-primary pull-right">Create Rule</button>
+        </div>
+        <div class="clearfix"></div>
+        <div class="margin-20">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{createForm.valid | json}}</pre>
+          <pre>form value: <br>{{createForm.value | json}}</pre>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
