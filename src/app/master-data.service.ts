@@ -39,11 +39,11 @@ export class MasterDataService {
 
   private options = new RequestOptions();
 
-  private url:string = "http://localhost:1337/10.3.11.2:8083/ohm-pcr1004-SNAPSHOT/servicecatalog/masterData/3_0/companies/";
+  private url:string = "http://localhost:1337/10.3.11.59:20001/ohm-pcr1004-SNAPSHOT/servicecatalog/masterData/3_0/companies/";
   private urlPart2:string = "/ravagoEntities/";
   private urlPart3:string = "/contactPersons?contactPersonType=SalesPerson&relationshipType=CUSTOMER";
 
-  private urlDelivery:string = "http://10.3.11.2:20003/public/masterData/companies/";
+  private urlDelivery:string = "http://10.3.11.59:20001/public/masterData/companies/";
   private urlDeliveryPart2:string =  "/deliveryAddresses";
 
   constructor(private http:Http) { }

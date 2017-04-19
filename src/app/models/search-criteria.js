@@ -6,6 +6,10 @@ var SearchCriteria = (function () {
         this.customer = [];
         this.salesperson = [];
         this.targetDate = "";
+        this.legalEntity = null;
+        this.customer = null;
+        this.salesperson = null;
+        this.targetDate = null;
     }
     return SearchCriteria;
 }());

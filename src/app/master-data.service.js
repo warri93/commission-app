@@ -21,10 +21,10 @@ var MasterDataService = (function () {
             'X-ravago-apiKey': 'd856b282-cf8b-43be-8bac-4c29a6f4caf4'
         });
         this.options = new http_1.RequestOptions();
-        this.url = "http://localhost:1337/10.3.11.2:8083/ohm-pcr1004-SNAPSHOT/servicecatalog/masterData/3_0/companies/";
+        this.url = "http://localhost:1337/10.3.11.59:20001/ohm-pcr1004-SNAPSHOT/servicecatalog/masterData/3_0/companies/";
         this.urlPart2 = "/ravagoEntities/";
         this.urlPart3 = "/contactPersons?contactPersonType=SalesPerson&relationshipType=CUSTOMER";
-        this.urlDelivery = "http://10.3.11.2:20003/public/masterData/companies/";
+        this.urlDelivery = "http://10.3.11.59:20001/public/masterData/companies/";
         this.urlDeliveryPart2 = "/deliveryAddresses";
     }
     MasterDataService.prototype.getSalesPersons = function (legalEntity, customer) {

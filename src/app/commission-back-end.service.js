@@ -58,9 +58,9 @@ exports.EditAssignmentDTOImpl = EditAssignmentDTOImpl;
 var CommissionBackEndService = (function () {
     function CommissionBackEndService(http) {
         this.http = http;
-        this.urlPublic = "http://localhost:1337/10.3.11.2:20003/public/sales/commission/rules";
-        this.urlAssignments = 'http://localhost:1337/10.3.11.2:20003/public/sales/commission/assignments';
-        this.urlRelink = 'http://localhost:1337/10.3.11.2:20003/public/sales/commission/assignments/relink';
+        this.urlPublic = "http://localhost:1337/10.3.11.59:20001/public/sales/commission/rules";
+        this.urlAssignments = 'http://localhost:1337/10.3.11.59:20001/public/sales/commission/assignments';
+        this.urlRelink = 'http://localhost:1337/10.3.11.59:20001/public/sales/commission/assignments/relink';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json',
             'X-ravago-version': '1.0',
             'X-ravago-userId': 'RAV02102',

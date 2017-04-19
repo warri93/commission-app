@@ -7,24 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SalesPersonComponent = (function () {
-    function SalesPersonComponent() {
+var ApplicationToolbar = (function () {
+    function ApplicationToolbar() {
     }
-    SalesPersonComponent.prototype.ngOnInit = function () {
-    };
-    return SalesPersonComponent;
+    return ApplicationToolbar;
 }());
-__decorate([
-    core_1.Input('group')
-], SalesPersonComponent.prototype, "salesPersonForm", void 0);
-__decorate([
-    core_1.Input('salespersonlist')
-], SalesPersonComponent.prototype, "salespersonslist", void 0);
-SalesPersonComponent = __decorate([
+ApplicationToolbar = __decorate([
     core_1.Component({
-        selector: 'app-sales-person',
-        templateUrl: './sales-person.html',
-        styleUrls: ['./sales-person.css']
+        selector: 'application-toolbar',
+        templateUrl: 'application-toolbar.html'
     })
-], SalesPersonComponent);
-exports.SalesPersonComponent = SalesPersonComponent;
+], ApplicationToolbar);
+exports.ApplicationToolbar = ApplicationToolbar;

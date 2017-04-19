@@ -4,8 +4,8 @@ import {SalesPerson} from "../master-data.service";
 
 @Component({
   selector: 'app-refinement-period',
-  templateUrl: './refinement-period.component.html',
-  styleUrls: ['./refinement-period.component.css']
+  templateUrl: './refinement-period.html',
+  styleUrls: ['./refinement-period.css']
 })
 export class RefinementPeriodComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class RefinementPeriodComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   public addSalesPerson() {

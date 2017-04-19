@@ -201,9 +201,9 @@ export class EditAssignmentDTOImpl implements  EditAssignmentDTO{
 @Injectable()
 export class CommissionBackEndService {
 
-  urlPublic : string ="http://localhost:1337/10.3.11.2:20003/public/sales/commission/rules";
-  urlAssignments:string = 'http://localhost:1337/10.3.11.2:20003/public/sales/commission/assignments';
-  urlRelink:string = 'http://localhost:1337/10.3.11.2:20003/public/sales/commission/assignments/relink';
+  urlPublic : string ="http://localhost:1337/10.3.11.59:20001/public/sales/commission/rules";
+  urlAssignments:string = 'http://localhost:1337/10.3.11.59:20001/public/sales/commission/assignments';
+  urlRelink:string = 'http://localhost:1337/10.3.11.59:20001/public/sales/commission/assignments/relink';
 
   headers = new Headers({     'Content-Type': 'application/json',
                               'X-ravago-version':'1.0',

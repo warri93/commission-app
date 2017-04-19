@@ -7,24 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SalesPersonComponent = (function () {
-    function SalesPersonComponent() {
+var search_component_1 = require("./search/search.component");
+var ComponentsModule = (function () {
+    function ComponentsModule() {
     }
-    SalesPersonComponent.prototype.ngOnInit = function () {
-    };
-    return SalesPersonComponent;
+    return ComponentsModule;
 }());
-__decorate([
-    core_1.Input('group')
-], SalesPersonComponent.prototype, "salesPersonForm", void 0);
-__decorate([
-    core_1.Input('salespersonlist')
-], SalesPersonComponent.prototype, "salespersonslist", void 0);
-SalesPersonComponent = __decorate([
-    core_1.Component({
-        selector: 'app-sales-person',
-        templateUrl: './sales-person.html',
-        styleUrls: ['./sales-person.css']
+ComponentsModule = __decorate([
+    core_1.NgModule({
+        declarations: [
+            search_component_1.SearchComponent
+        ]
     })
-], SalesPersonComponent);
-exports.SalesPersonComponent = SalesPersonComponent;
+], ComponentsModule);
+exports.ComponentsModule = ComponentsModule;

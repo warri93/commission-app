@@ -36,8 +36,8 @@ __decorate([
 RefinementPeriodComponent = __decorate([
     core_1.Component({
         selector: 'app-refinement-period',
-        templateUrl: './refinement-period.component.html',
-        styleUrls: ['./refinement-period.component.css']
+        templateUrl: './refinement-period.html',
+        styleUrls: ['./refinement-period.css']
     })
 ], RefinementPeriodComponent);
 exports.RefinementPeriodComponent = RefinementPeriodComponent;
