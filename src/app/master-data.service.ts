@@ -29,7 +29,7 @@ import {environment} from "../environments/environment";
 @Injectable()
 export class MasterDataService {
 
-  private headers = environment.HEADERS;
+  private headers = environment.COMMISSION_HEADERS;
 
   private options = new RequestOptions();
 
@@ -41,6 +41,84 @@ export class MasterDataService {
   private urlDeliveryPart2: string = "/deliveryAddresses";
 
   constructor(private http: Http) {
+  }
+
+  getLegalEntities(): Observable<[{}]> {
+    this.options.headers = environment.BLUE_HEADERS;
+
+    return this.http.get(environment.OHM_MASTERDATA_URL + environment.COMPANY_SERVICE + "?type=LegalEntity", this.options).map(res => res.json()).catch(this.handleError);
+  }
+
+  getCustomers(): [{}] {
+    return [
+      {
+        "ID": "200499",
+        "callSign":"LOOMANSPLASTICSNV",
+        "channel":"UNKNOWN",
+        "companyGroup":{
+          "id":1,
+          "description":"Loomans GROUP"
+        },
+        "defaultCallOffFlag":false,
+        "legalAddress":{
+          "id":12169,
+          "callsign":"LOOMANS PLASTICS",
+          "city":"LOMMEL",
+          "country":{
+            "id":10,
+            "iso2":"BE",
+            "iso3":"BEL",
+            "name":"BELGIUM"
+          },
+          "countryCode":10,
+          "email":"contact@loomans.eu",
+          "fax":"+321489151",
+          "line1":"MERCATORSTRAAT 15",
+          "line2":"LINE2",
+          "line3":"LINE3",
+          "line4":"LINE4",
+          "line5":"LINE5",
+          "name":"LOOMANS PLASTICS NV",
+          "phone":"+321456131",
+          "postCode":"3920",
+          "province":"ANTWERP",
+          "provinceCode":"ANT",
+          "updatedForTms":false
+        },
+        "legalEntitySpec":{
+          "currencyCode":"EUR",
+          "incoTerm":{
+            "id":1,
+            "code":"EXW",
+            "description":"EXW",
+            "type":"PICKUP"
+          },
+          "legalEntityId":124,
+          "legalEntityRelationships":[
+            {
+              "legalEntityRelationshipType":"CUSTOMER",
+              "paymentConditionDescription":"30 days",
+              "paymentConditionId":20,
+              "paymentMediumDescription":"Wire transfer",
+              "paymentMediumId":5
+            },
+            {
+              "legalEntityRelationshipType":"SUPPLIER",
+              "paymentConditionDescription":"60 days",
+              "paymentConditionId":21,
+              "paymentMediumDescription":"Wire transfer",
+              "paymentMediumId":5
+            }
+          ]
+        },
+        "localName":"LOCAL NAME",
+        "name":"LOOMANS PLASTICS NV",
+        "tariffGroup":"EUROPE",
+        "vatNo":"BE 0441.237.360",
+        "uomSystem":"SI metric units",
+        "updatedForTms":false
+      }
+    ]
   }
 
   getSalesPersons(legalEntity: string, customer: string): Observable<SalesPerson[]> {
@@ -63,7 +141,7 @@ export class MasterDataService {
   }
 
   private handleError(error: any) {
-    let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    let errMsg = (error.message) ? error.message : error.status ? error.status - error.statusText : 'Server error';
     console.error("server error :" + errMsg); // log to console instead
     return Observable.throw(errMsg);
   }

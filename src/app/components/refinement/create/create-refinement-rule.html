@@ -1,49 +1,34 @@
 <div class="page-view" id="order_form">
 
-  <!-- Page-view - Header - start -->
   <div class="view-header">
     <div class="view-wrapper">
       <div class="wrapper-content">
-
-        <!-- Order header - start -->
         <div class="group-align-right">
           <button class="button button-white-outline" id="button_cancel" title="Cancel" tabindex="5"><i
             class="fa fa-ban"></i> Cancel
           </button>
 
-          <button class="button button-white-outline action-primary" id="button_save" tabindex="5"><i
-            class="fa fa-floppy-o"></i> Save
+          <button class="button button-white-outline action-primary"
+                  id="button_save"
+                  tabindex="5"
+                  [disabled]="newRefinementRule.invalid"
+                  (click)="saveRefinementRule()">
+            <i class="fa fa-floppy-o"></i>
+            Save
           </button>
 
           <button class="button button-default action-primary" id="button_confirm" tabindex="5"><i
             class="blue-Checked"></i> Confirm
           </button>
         </div>
-        <!-- Order header - end -->
-
-        <!-- Actions toolbar - start -->
-
-        <!-- Actions toolbar - end -->
-
       </div>
-      <!-- <div class="wrapper-sidebar"></div> -->
     </div>
   </div>
-  <!-- Page-view - Header - end -->
 
-  <!-- Page-view - Content - start -->
   <div class="view-content">
     <div class="view-wrapper">
       <div class="wrapper-content">
-        <!-- General content - start -->
-
-        <!-- Warnings & Errors frontend - start -->
-
-        <!-- Warnings & Errors frontend - end -->
-
-        <!-- Primairy content - start -->
-        <form name="orderForm.orderForm" novalidate autocomplete="off">
-
+        <form [formGroup]="newRefinementRule" novalidate autocomplete="off">
           <template #entityTemplate let-le="result" let-le="term">
             {{le.callSign}}
           </template>
@@ -52,199 +37,38 @@
             {{sp.firstName}} {{sp.familyName}}
           </template>
 
-          <div class="content-panel panel-default panel-open">
-            <div class="header clearfix">
-              <h2><i class="blue-Info"></i>General info</h2>
-            </div>
-            <div class="content">
+          <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0, ngb-panel-1, ngb-panel-2">
+            <ngb-panel>
+              <template ngbPanelTitle>
+                <span><i class="blue-Info"></i> General info</span>
+              </template>
+              <template ngbPanelContent>
+                <create-refinement-rule-general-info [newRefinementRule]="newRefinementRule"></create-refinement-rule-general-info>
+              </template>
+            </ngb-panel>
 
-              <div class="form-set">
-                <div class="grid-row grid-gutter gutter-top gutter-bottom">
-                  <div class="col-m-12">
-                    <!-- Legal : Start -->
-                    <div class="grid-row grid-gutter">
-                      <div class="col-m-4 col-l-4 offset-2">
-                        <div class="form-field-set">
-                          <div class="label">
-                            <span>Legal Entity</span>
-                          </div>
-                          <div class="input">
-                            <input id="typeahead-search-legal-entity"
-                                   name="legalEntity"
-                                   type="text"
-                                   class="form-control"
-                                   [(ngModel)]="legalEntity"
-                                   [ngbTypeahead]="searchLegalEntity"
-                                   [resultTemplate]="entityTemplate"
-                                   [inputFormatter]="formatEntity"/>
-                          </div>
-                        </div>
-                      </div>
+            <ngb-panel>
+              <template ngbPanelTitle>
+                <span><i class="fa fa-map-marker"></i> Refinement details</span>
+              </template>
+              <template ngbPanelContent>
+                <create-refinement-rule-details [newRefinementRule]="newRefinementRule"></create-refinement-rule-details>
+              </template>
+            </ngb-panel>
 
-                      <div class="col-m-4 col-l-4">
-                        <div class="form-field-set">
-                          <div class="label">
-                            <span>Customer</span>
-                          </div>
-                          <div class="input">
-                            <input id="typeahead-search-customer"
-                                   name="customer"
-                                   type="text"
-                                   class="form-control"
-                                   [(ngModel)]="customer"
-                                   [ngbTypeahead]="searchCustomer"
-                                   [resultTemplate]="entityTemplate"
-                                   [inputFormatter]="formatEntity"/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Legal : End -->
-
-                    <!-- Customer : Start -->
-                    <div class="grid-row grid-gutter">
-                      <div class="col-m-2 col-l-2 offset-2">
-                        <div class="form-field-set">
-                          <div class="label">
-                            <span>Valid Period From</span>
-                          </div>
-                          <div class="input">
-                            <div class="input-group">
-                              <input class="form-control" placeholder="yyyy-mm-dd" name="validDateFromDatePicker"
-                                     [(ngModel)]="validDateFrom" ngbDatepicker
-                                     #validDateFromDatePicker="ngbDatepicker" required>
-                              <div class="input-group-addon" (click)="validDateFromDatePicker.toggle()">
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-m-2 col-l-2">
-                        <div class="form-field-set">
-                          <div class="label">
-                            <span>Valid Period To</span>
-                          </div>
-                          <div class="input">
-                            <div class="input-group">
-                              <input class="form-control" placeholder="yyyy-mm-dd" name="validDateToDatePicker"
-                                     [(ngModel)]="validDateTo" ngbDatepicker
-                                     #validDateToDatePicker="ngbDatepicker" required>
-                              <div class="input-group-addon" (click)="validDateToDatePicker.toggle()">
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-m-4 col-l-4">
-                        <div class="form-field-set">
-                          <div class="label">
-                            <span>Order Owner</span>
-                          </div>
-                          <div class="input">
-                            <input id="typeahead-order-owner"
-                                   name="orderOwner"
-                                   type="text"
-                                   class="form-control"
-                                   [disabled]="!legalEntity || !customer"
-                                   [(ngModel)]="salesPerson"/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Customer : End -->
-                </div>
-              </div>
-            </div>
-          </div>
+            <ngb-panel>
+              <template ngbPanelTitle>
+                <span><i class="blue-User"></i> Assigned Sales Persons</span>
+              </template>
+              <template ngbPanelContent>
+                <create-refinement-rule-sales-persons [newRefinementRule]="newRefinementRule"></create-refinement-rule-sales-persons>
+              </template>
+            </ngb-panel>
+          </ngb-accordion>
 
           <input type="hidden" id="is_processing"/>
         </form>
-        <!-- Primairy content - end -->
-
-        <!-- General content - end -->
-
       </div>
-      <!-- <div class="wrapper-sidebar"></div> -->
-    </div>
-  </div>
-  <!-- Page-view - Content - end -->
-</div>
-
-
-<!--
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="margin-20">
-        <h4>Create Refinement rule</h4>
-        <div  *ngIf="response" class="alert alert-success alert-dismissable" role="alert">
-            {{ response.status }}
-            {{ response.statusText}}
-        </div>
-        <div  *ngIf="errorMessage" class="alert alert-danger alert-dismissable" role="alert">
-            {{ errorMessage}}
-        </div>
-      </div>
-      <form [formGroup]="createRefinementForm" novalidate (ngSubmit)="create()">
-        <div class="form-group">
-          <button type="button" class="btn btn-danger" (click)="addPeriod()">Add Period</button>
-          <button type="button" class="btn btn-danger" (click)="fillSalesPersons()">Load Salesreps</button>
-          <button type="button" class="btn btn-danger" (click)="fillDeliveryAddresses()">Load Addresses</button>
-        </div>
-        <div class="form-group">
-          <label>Default Rule</label>
-          <select class="form-control" formControlName="defaultRules" data-value="">
-            <option *ngFor="let rule of rules" [ngValue]="rule">
-              {{ rule.ravagoEntity.reference}} - {{ rule.ravagoEntity.callSign}} / {{rule.customer.reference}} -
-              {{rule.customer.callSign}}
-            </option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Product ID</label>
-          <input type="text" formControlName="productID" />
-        </div>
-        <div class="form-group">
-          <label>DeliveryAddress</label>
-          <select class="form-control" formControlName="deliveryAddresses" data-value="">
-            <option *ngFor="let address of addresses" [ngValue]="address">
-              {{ address.addressLine}} {{address.addressName}}
-            </option>
-          </select>
-        </div>
-        <div formArrayName="periods">
-          <div *ngFor="let period of createRefinementForm.controls.periods.controls; let i=index"
-               class="panel panel-default">
-            <div class="panel-heading">
-              <span>Period {{i + 1}}</span>
-              <span class="glyphicon glyphicon-remove pull-right"
-                    *ngIf="createRefinementForm.controls.periods.controls.length > 1" (click)="removeAddress(i)"></span>
-            </div>
-            <div class="panel-body" [formGroupName]="i">
-              <app-refinement-period [salespersonlist]="salesPersons" [periodGroup]="period"></app-refinement-period>
-            </div>
-          </div>
-        </div>
-
-        <div class="margin-20">
-          <button type="submit" class="btn btn-primary pull-right">Create Rule</button>
-        </div>
-        <div class="clearfix"></div>
-        <div class="margin-20">
-          &lt;!&ndash;
-          <div>myForm details:-</div>
-          <pre>Is myForm valid?: <br>{{createRefinementForm.valid | json}}</pre>
-          <pre>form value: <br>{{createRefinementForm.value | json}}</pre>
-          &ndash;&gt;
-        </div>
-      </form>
     </div>
   </div>
 </div>
-
--->

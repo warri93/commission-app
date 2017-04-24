@@ -206,7 +206,7 @@ export class CommissionBackEndService {
   urlAssignments: string = environment.COMMISSION_PUBLIC_MULE_URL + "sales/commission/assignments";
   urlRelink: string = environment.COMMISSION_PUBLIC_MULE_URL + "sales/commission/assignments/relink";
 
-  headers = environment.HEADERS;
+  headers = environment.COMMISSION_HEADERS;
 
   options = new RequestOptions();
 

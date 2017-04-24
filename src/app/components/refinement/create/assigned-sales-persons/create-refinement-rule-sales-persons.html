@@ -1,0 +1,76 @@
+<template #salesPersonTemplate let-sp="result" let-sp="term">
+  {{sp.firstName}} {{sp.familyName}}
+</template>
+
+<div class="form-set" [formGroup]="newRefinementRule">
+  <div class="col-m-12">
+    <div formGroupName="assignmentValues">
+      <div formArrayName="assignees">
+        <div
+          *ngFor="let control of newRefinementRule.controls.assignmentValues.controls.assignees.controls; let i = index"
+          [formGroupName]="i">
+          <div class="grid-row grid-gutter">
+            <div class="col-m-4 col-l-4 offset-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Sales Person</span>
+                </div>
+                <div class="input">
+                  <input id="typeahead-search-sales-person"
+                         type="text"
+                         class="form-control"
+                         formControlName="salesPerson"
+                         [ngbTypeahead]="searchSalesPerson"
+                         [resultTemplate]="salesPersonTemplate"
+                         [inputFormatter]="formatSalesPerson"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-2 col-l-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Sales Volume %</span>
+                </div>
+                <div class="input">
+                  <input id="input-sales-volume-percentage"
+                         name="sales-volume-percentage"
+                         type="number"
+                         formControlName="salesVolumePercentage"
+                         class="form-control"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-2 col-l-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Commission %</span>
+                </div>
+                <div class="input">
+                  <input id="input-commission-percentage"
+                         name="commission-percentage"
+                         type="number"
+                         formControlName="commissionPercentage"
+                         class="form-control"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-row grid-gutter">
+        <div class="col-m-1 col-l-1 offset-2">
+          <div class="form-field-set">
+            <div class="label">
+
+            </div>
+            <button class="button button-default button-icon button-large" (click)="addSalesPerson()"><i
+              class="blue-Add"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

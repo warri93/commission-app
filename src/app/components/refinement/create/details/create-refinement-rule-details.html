@@ -1,0 +1,77 @@
+<template #addressTemplate let-sp="result" let-sp="term">
+  {{sp.reference}}
+</template>
+
+<template #productTemplate let-sp="result" let-sp="term">
+  {{sp.productID}}
+</template>
+
+<div class="form-set" [formGroup]="newRefinementRule">
+  <div class="grid-row grid-gutter gutter-top gutter-bottom">
+    <div class="col-m-12">
+      <div class="grid-row grid-gutter">
+        <div class="col-m-4 col-l-4 offset-2">
+          <div class="form-field-set">
+            <div class="label">
+              <span>Destination Address</span>
+            </div>
+            <div class="input">
+              <input id="typeahead-search-legal-entity"
+                     name="destination-address"
+                     type="text"
+                     class="form-control"
+                     formControlName="destinationAddress"
+                     [ngbTypeahead]="searchDestinationAddress"
+                     [resultTemplate]="addressTemplate"
+                     [inputFormatter]="formatAddress"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Legal : End -->
+
+      <div class="grid-row grid-gutter">
+        <div class="col-m-8 offset-2">
+          <ngb-tabset>
+            <ngb-tab title="By Product">
+              <template ngbTabContent>
+                <div class="grid-row gutter-top gutter-bottom">
+                <div class="col-m-12 col-l-12">
+                  <div class="form-field-set">
+                    <div class="label">
+                      <span>Product</span>
+                    </div>
+                    <div class="input">
+                      <input id="typeahead-search-product"
+                             name="product"
+                             type="text"
+                             class="form-control"
+                             formControlName="productSpecification"
+                             [ngbTypeahead]="searchProduct"
+                             [resultTemplate]="productTemplate"
+                             [inputFormatter]="formatProduct"/>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </template>
+            </ngb-tab>
+            <ngb-tab title="By Hierarchy Of Attribute">
+              <template ngbTabContent>
+                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua,
+                  retro
+                  synth
+                  master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher
+                  retro
+                  keffiyeh
+                  dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
+                  salvia
+                  cillum
+                  iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+              </template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
