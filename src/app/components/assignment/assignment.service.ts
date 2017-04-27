@@ -11,7 +11,7 @@ export class AssignmentService {
   ) {}
 
   searchAssignment(ravagoEntityID) {
-    let url = environment.COMMISSION_BACKEND_URL + "rules?ravagoEntityID" + ravagoEntityID;
+    let url = environment.COMMISSION_BACKEND_URL + "rules?ravagoEntityID=" + ravagoEntityID;
     return this.http.get(url)
       .map(res => res.json())
       .catch(this.handleError);
