@@ -1,0 +1,13 @@
+<template #entityTemplate let-le="result" let-le="term">
+  {{le.callSign}}
+</template>
+
+<input id="typeahead-search-legal-entity"
+       name="legalEntity"
+       type="text"
+       class="form-control"
+       [(ngModel)]="legalEntity"
+       [ngbTypeahead]="searchLegalEntity"
+       [resultTemplate]="entityTemplate"
+       [inputFormatter]="formatEntity"
+       (selectItem)="legalEntitySelected($event)"/>

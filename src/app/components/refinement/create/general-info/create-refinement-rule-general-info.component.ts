@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {MasterDataService} from "../../../../master-data.service";
 import {Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
+import {RavagoEntity} from "../../../../models/ravago-entity";
 
 @Component({
   selector: 'create-refinement-rule-general-info',
@@ -21,6 +22,10 @@ export class CreateRefinementRuleGeneralInfo implements OnInit {
   ngOnInit(): void {
     this.getLegalEntities();
     this.getCustomers();
+  }
+
+  ravagoEntityChanged(event) {
+    this.newRefinementRule.value.ravagoEntity = new RavagoEntity(event.ID, event.callSign);
   }
 
   getLegalEntities() {

@@ -52,7 +52,7 @@
                       Search
                     </button>
                     <button class="button button-primary button-large">Relink</button>
-                    <button class="button button-primary button-large">Clear</button>
+                    <button class="button button-primary button-large" (click)="clearSearchCriteria()">Clear</button>
                   </div>
                 </div>
               </div>
@@ -60,6 +60,12 @@
 
             <assignments-table [assignmentRules]="assignmentRules"></assignments-table>
           </div>
+
+
+          <div class="grid-row grid-gutter gutter-bottom" *ngIf="assignmentRules && assignmentRules.length === 0">
+            <span>No results found for ID: {{ravagoEntityID}}</span>
+          </div>
+
         </div>
       </div>
     </div>

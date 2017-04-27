@@ -16,7 +16,6 @@ export class AuthInterceptor {
   }
 
   get(url) {
-    console.log("get authinterceptor");
     let headers = new Headers();
     this.createAuthorizationHeader(headers);
     return this.http.get(url, {

@@ -15,6 +15,7 @@ import {Address} from "../../../models/address";
 import {Product} from "../../../models/product";
 import {AssignmentValues} from "../../../models/assignmentValues";
 import {SalesPerson} from "../../../models/salesPerson";
+import {RavagoEntity} from "../../../models/ravago-entity";
 
 @Component({
   selector: 'create-refinement-rule',
@@ -44,6 +45,7 @@ export class CreateRefinementRule implements OnInit {
 
   ngOnInit() {
     this.newRefinementRule = this.fb.group({
+      ravagoEntity: new FormControl(new RavagoEntity()),
       destinationAddress: new FormControl(new Address()),
       assignmentValues: this.fb.group({
         period: this.fb.group({

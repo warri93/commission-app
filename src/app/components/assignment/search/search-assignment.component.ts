@@ -18,6 +18,7 @@ export class SearchAssignment {
   private dataLoaded = 0;
   private relinkResponse;
 
+  ravagoEntityID: number;
   assignmentRules: AssignmentRule[];
 
   constructor(
@@ -30,6 +31,11 @@ export class SearchAssignment {
     this.assignmentService.searchAssignment(ravagoEntityID).subscribe(assignmentRules => {
       this.assignmentRules = assignmentRules;
     })
+  }
+
+  clearSearchCriteria() {
+    this.ravagoEntityID = null;
+    this.assignmentRules = null;
   }
 
   search() {

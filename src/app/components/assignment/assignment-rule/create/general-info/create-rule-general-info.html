@@ -18,7 +18,8 @@
                      [resultTemplate]="entityTemplate"
                      [inputFormatter]="formatEntity"
                      (selectItem)="legalEntitySelected()"/>-->
-              <input class="form-control">
+              <!--<input class="form-control">-->
+              <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)"></ravago-entity-dropdown>
             </div>
           </div>
         </div>

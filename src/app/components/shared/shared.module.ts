@@ -7,14 +7,18 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RouterModule} from "@angular/router";
 import {ApplicationToolbar} from "./application-toolbar/application-toolbar.component";
 import {AuthInterceptor} from "./auth-interceptor/auth-interceptor";
+import {RavagoEntityDropdown} from "./dropdowns/ravago-entity/ravago-entity.component";
 
 @NgModule({
   imports: [
     CommonModule,
     NgbModule.forRoot(),
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule
   ],
-  declarations: [ApplicationToolbar],
+  declarations: [ApplicationToolbar, RavagoEntityDropdown],
   exports: [
     CommonModule,
     NgbModule,
@@ -22,7 +26,8 @@ import {AuthInterceptor} from "./auth-interceptor/auth-interceptor";
     ReactiveFormsModule,
     HttpModule,
     RouterModule,
-    ApplicationToolbar
+    ApplicationToolbar,
+    RavagoEntityDropdown
   ],
   providers: [
     AuthInterceptor

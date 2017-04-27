@@ -9,16 +9,7 @@
               <span>Legal Entity</span>
             </div>
             <div class="input">
-              <!--<input id="typeahead-search-legal-entity"
-                     name="legalEntity"
-                     type="text"
-                     class="form-control"
-                     [(ngModel)]="legalEntity"
-                     [ngbTypeahead]="searchLegalEntity"
-                     [resultTemplate]="entityTemplate"
-                     [inputFormatter]="formatEntity"
-                     (selectItem)="legalEntitySelected()"/>-->
-              <input class="form-control">
+              <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)"></ravago-entity-dropdown>
             </div>
           </div>
         </div>

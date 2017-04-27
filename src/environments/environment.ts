@@ -15,7 +15,7 @@ export const environment = {
   X_RAVAGO_MESSAGE_ID: "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
   COMMISSION_BACKEND_URL: DOCKER_URL + "commission-app/sales/commission/1_0/",
   COMMISSION_PUBLIC_MULE_URL: DOCKER_URL + "public/",
-  OHM_MASTERDATA_URL: DOCKER_URL + "internal/masterData/",
+  OHM_MASTERDATA_URL: "http://localhost:1337/10.3.11.2:20000/internal/masterData/",
   COMPANY_SERVICE: "3_3/companies",
   COMMISSION_HEADERS: new Headers({
     'Content-Type': 'application/json',

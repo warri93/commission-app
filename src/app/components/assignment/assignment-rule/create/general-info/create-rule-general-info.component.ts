@@ -1,7 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Observable} from "rxjs";
-import {FormGroup} from "@angular/forms";
+import {FormControl} from "@angular/forms";
 import {MasterDataService} from "../../../../../master-data.service";
+import {RavagoEntity} from "../../../../../models/ravago-entity";
 
 @Component({
   selector: 'create-rule-general-info',
@@ -45,9 +46,8 @@ export class CreateRuleGeneralInfo implements OnInit {
           v.name.toLowerCase().startsWith(term.toLocaleLowerCase())
         ).splice(0, 10));
 
-  legalEntitySelected(item) {
-    console.log(item);
-    console.log("legal entity selected");
+  ravagoEntityChanged(event) {
+    this.newRule.value.ravagoEntity = new RavagoEntity(event.ID, event.callSign);
   }
 
   searchCustomer = (text$: Observable<string>) =>
