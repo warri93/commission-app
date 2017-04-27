@@ -5,9 +5,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RouterModule} from "@angular/router";
+import {NgxErrorsModule} from '@ultimate/ngxerrors';
+
 import {ApplicationToolbar} from "./application-toolbar/application-toolbar.component";
 import {AuthInterceptor} from "./auth-interceptor/auth-interceptor";
 import {RavagoEntityDropdown} from "./dropdowns/ravago-entity/ravago-entity.component";
+import {CustomerDropdown} from "./dropdowns/customer/customer.component";
 
 @NgModule({
   imports: [
@@ -16,9 +19,14 @@ import {RavagoEntityDropdown} from "./dropdowns/ravago-entity/ravago-entity.comp
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxErrorsModule
   ],
-  declarations: [ApplicationToolbar, RavagoEntityDropdown],
+  declarations: [
+    ApplicationToolbar,
+    RavagoEntityDropdown,
+    CustomerDropdown
+  ],
   exports: [
     CommonModule,
     NgbModule,
@@ -26,8 +34,10 @@ import {RavagoEntityDropdown} from "./dropdowns/ravago-entity/ravago-entity.comp
     ReactiveFormsModule,
     HttpModule,
     RouterModule,
+    NgxErrorsModule,
     ApplicationToolbar,
-    RavagoEntityDropdown
+    RavagoEntityDropdown,
+    CustomerDropdown
   ],
   providers: [
     AuthInterceptor

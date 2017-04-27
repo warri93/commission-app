@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {MasterDataService} from "../../../../master-data.service";
 
 import {Observable} from "rxjs";
@@ -8,6 +8,9 @@ import {Observable} from "rxjs";
   templateUrl: 'ravago-entity.html'
 })
 export class RavagoEntityDropdown implements OnInit{
+  @Input()
+  form;
+
   @Output()
   ravagoEntityChanged = new EventEmitter();
 

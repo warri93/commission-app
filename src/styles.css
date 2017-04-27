@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "app/error.css";
 @import "app/components/refinement/create/details/create-refinement-rule-details.css";
 
 .form-control {

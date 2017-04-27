@@ -1,0 +1,23 @@
+<template #customerTemplate let-c="result" let-c="term">
+  {{c.callSign}}
+</template>
+
+<div [formGroup]="form">
+  <input id="typeahead-search-customer"
+         name="customer"
+         type="text"
+         class="form-control"
+         formControlName="customer"
+         [class.errors]="customer.hasError('*', ['touched'])"
+         [(ngModel)]="c"
+         [ngbTypeahead]="searchCustomer"
+         [resultTemplate]="customerTemplate"
+         [inputFormatter]="formatCustomer"
+         (selectItem)="customerSelected($event)"/>
+
+  <div ngxErrors="customer" #customer="ngxErrors">
+    <div class="error" ngxError="required" [when]="['touched']">
+      Customer is required
+    </div>
+  </div>
+</div>

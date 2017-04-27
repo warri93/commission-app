@@ -6,7 +6,7 @@
         <div class="col-m-4 col-l-4 offset-2">
           <div class="form-field-set">
             <div class="label">
-              <span>Legal Entity</span>
+              <span>Legal Entity *</span>
             </div>
             <div class="input">
               <!--<input id="typeahead-search-legal-entity"
@@ -19,7 +19,7 @@
                      [inputFormatter]="formatEntity"
                      (selectItem)="legalEntitySelected()"/>-->
               <!--<input class="form-control">-->
-              <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)"></ravago-entity-dropdown>
+              <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)" [form]="newRule"></ravago-entity-dropdown>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="col-m-4 col-l-4">
           <div class="form-field-set">
             <div class="label">
-              <span>Customer</span>
+              <span>Customer *</span>
             </div>
             <div class="input">
               <!--<input id="typeahead-search-customer"
@@ -38,7 +38,26 @@
                      [ngbTypeahead]="searchCustomer"
                      [resultTemplate]="entityTemplate"
                      [inputFormatter]="formatEntity"/>-->
-              <input class="form-control">
+              <!--<input class="form-control"
+                     type="text"
+                     placeholder="Enter"
+                     formControlName="test"
+                     [class.errors]="test.hasError('*', ['dirty'])">
+
+              <div ngxErrors="test" #test="ngxErrors">
+                <div class="error" ngxError="required" [when]="['touched']">
+                  Username is required
+                </div>
+              </div>-->
+              <!--<input class="form-control" formControlName="test">
+
+              <div ngxErrors="test">
+                <div ngxError="required" [when]="['touched']">
+                  Sales Volume Percentage is required
+                </div>
+              </div>-->
+
+              <customer-dropdown (customerChanged)="customerChanged($event)" [form]="newRule"></customer-dropdown>
             </div>
           </div>
         </div>
@@ -81,22 +100,22 @@
           </div>
         </div>
 
-        <div class="col-m-4 col-l-4">
+        <!--<div class="col-m-4 col-l-4">
           <div class="form-field-set">
             <div class="label">
               <span>Order Owner</span>
             </div>
             <div class="input">
-              <!--<input id="typeahead-order-owner"
+              &lt;!&ndash;<input id="typeahead-order-owner"
                      name="orderOwner"
                      type="text"
                      class="form-control"
                      [disabled]="!legalEntity || !customer"
-                     [(ngModel)]="salesPerson"/>-->
+                     [(ngModel)]="salesPerson"/>&ndash;&gt;
               <input class="form-control">
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
     <!-- Customer : End -->

@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {MasterDataService} from "../../../../../master-data.service";
 import {RavagoEntity} from "../../../../../models/ravago-entity";
+import {Customer} from "../../../../../models/customer";
 
 @Component({
   selector: 'create-rule-general-info',
@@ -48,6 +49,10 @@ export class CreateRuleGeneralInfo implements OnInit {
 
   ravagoEntityChanged(event) {
     this.newRule.value.ravagoEntity = new RavagoEntity(event.ID, event.callSign);
+  }
+
+  customerChanged(event) {
+    this.newRule.value.customer = new Customer(event.ID, event.callSign);
   }
 
   searchCustomer = (text$: Observable<string>) =>

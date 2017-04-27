@@ -3,7 +3,7 @@ export class Period {
   endDate: Date;
 
   constructor () {
-    this.startDate = null;
-    this.endDate = null;
+    this.startDate = new Date(0);
+    this.endDate = new Date(0);
   }
 }

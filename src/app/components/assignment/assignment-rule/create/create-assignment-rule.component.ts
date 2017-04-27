@@ -15,6 +15,7 @@ import { SalesPersonImpl } from "../../../../models/sales-person-impl";
 import {Observable} from 'rxjs/Observable';
 import {SalesPerson} from "../../../../models/salesPerson";
 import {RavagoEntity} from "../../../../models/ravago-entity";
+import {Customer} from "../../../../models/customer";
 
 @Component({
   selector: 'create-assignment-rule',
@@ -39,11 +40,12 @@ export class CreateAssignmentRule implements OnInit {
 
   ngOnInit() {
     this.newRule = this.fb.group({
-      ravagoEntity: new FormControl(new RavagoEntity()),
+      customer: new FormControl(new Customer(), Validators.required),
+      ravagoEntity: new FormControl(new RavagoEntity(), Validators.required),
       assignmentValues: this.fb.group({
         period: this.fb.group({
-          startDate: new FormControl(""),
-          endDate: new FormControl("")
+          startDate: new FormControl(new Date(0), Validators.required),
+          endDate: new FormControl(new Date(0))
         }),
         assignees: this.fb.array([
           this.createAssignee()
@@ -81,8 +83,8 @@ export class CreateAssignmentRule implements OnInit {
 
   createAssignee() {
     return this.fb.group({
-      salesVolumePercentage: new FormControl(""),
-      commissionPercentage: new FormControl(""),
+      salesVolumePercentage: new FormControl("", Validators.required),
+      commissionPercentage: new FormControl("", Validators.required),
       salesPerson: new FormControl(new SalesPerson())
     })
   }
