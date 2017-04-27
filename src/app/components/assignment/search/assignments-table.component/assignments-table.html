@@ -1,0 +1,52 @@
+<div class="flex-table" *ngIf="assignmentRules && assignmentRules.length > 0">
+  <div class="center">
+    <ul class="row lines-3">
+      <li class="size-6" [style.font-size]="'35px'">{{assignmentRules[0].ravagoEntity.callSign}} - {{assignmentRules[0].customer.callSign}} ({{assignmentRules[0].customer.reference}})</li>
+    </ul>
+
+    <ul class="head row">
+      <li class="size-2"><p>Rule ID</p></li>
+      <li class="size-3"><p>Order Owner</p></li>
+      <li class="size-3"><p>Assigned Sales Rep</p></li>
+      <li class="size-1"><p>Sales Vol. %</p></li>
+      <li class="size-1"><p>Comm. %</p></li>
+      <li class="size-2"><p>Validity Period</p></li>
+    </ul>
+
+    <ul class="row lines-8" *ngFor="let rule of assignmentRules">
+      <li class="size-2">
+        {{rule.defaultAssignmentRuleID}}
+      </li>
+
+      <li class="size-3">
+        <p>
+          {{rule.assignmentValues[0].owner.firstName}} {{rule.assignmentValues[0].owner.familyName}}
+        </p>
+      </li>
+
+      <li class="size-3">
+        <p *ngFor="let assignee of rule.assignmentValues[0].assignees">
+          {{assignee.salesPerson.firstName}} {{assignee.salesPerson.familyName}}
+        </p>
+      </li>
+
+      <li class="size-1">
+        <p *ngFor="let assignee of rule.assignmentValues[0].assignees">
+          {{assignee.salesVolumePercentage}}
+        </p>
+      </li>
+
+      <li class="size-1">
+        <p *ngFor="let assignee of rule.assignmentValues[0].assignees">
+          {{assignee.commissionPercentage}}
+        </p>
+      </li>
+
+      <li class="size-2">
+        <p>
+          {{rule.assignmentValues[0].period.startDate}} <span *ngIf="rule.assignmentValues[0].period.endDate">- {{rule.assignmentValues[0].period.endDate}}</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+</div>

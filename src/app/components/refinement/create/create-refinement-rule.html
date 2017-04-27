@@ -22,6 +22,10 @@
                   (click)="confirmRefinementRule()"><i
             class="blue-Checked"></i> Confirm
           </button>
+
+          <div class="actions-toolbar toolbar-large toolbar-primary">
+            <h2>New Refinement Rule</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -39,8 +43,8 @@
             {{sp.firstName}} {{sp.familyName}}
           </template>
 
-          <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0, ngb-panel-1, ngb-panel-2">
-            <ngb-panel>
+          <ngb-accordion #acc="ngbAccordion" activeIds="create-refinement-rule-general-info-panel, create-refinement-rule-details-panel, create-refinement-rule-assigned-sales-persons-panel">
+            <ngb-panel id="create-refinement-rule-general-info-panel">
               <template ngbPanelTitle>
                 <span><i class="blue-Info"></i> General info</span>
               </template>
@@ -49,7 +53,7 @@
               </template>
             </ngb-panel>
 
-            <ngb-panel>
+            <ngb-panel id="create-refinement-rule-details-panel">
               <template ngbPanelTitle>
                 <span><i class="fa fa-map-marker"></i> Refinement details</span>
               </template>
@@ -58,7 +62,7 @@
               </template>
             </ngb-panel>
 
-            <ngb-panel>
+            <ngb-panel id="create-refinement-rule-assigned-sales-persons-panel">
               <template ngbPanelTitle>
                 <span><i class="blue-User"></i> Assigned Sales Persons</span>
               </template>
@@ -67,8 +71,6 @@
               </template>
             </ngb-panel>
           </ngb-accordion>
-
-          <input type="hidden" id="is_processing"/>
         </form>
       </div>
     </div>

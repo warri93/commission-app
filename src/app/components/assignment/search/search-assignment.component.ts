@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CommissionBackEndService, Assignment} from '../../../commission-back-end.service';
+import {AssignmentService} from "../assignment.service";
+import {AssignmentRule} from "../../../models/assignment-rule";
 
 @Component({
   selector: 'search-assignment',
   templateUrl: 'search-assignment.html'
 })
-export class SearchAssignment implements OnInit {
+export class SearchAssignment {
 
   private errorMessage;
   private orderNumber:string = "";
@@ -16,10 +18,18 @@ export class SearchAssignment implements OnInit {
   private dataLoaded = 0;
   private relinkResponse;
 
-  constructor(private commissionService:CommissionBackEndService) {
+  assignmentRules: AssignmentRule[];
+
+  constructor(
+    private commissionService:CommissionBackEndService,
+    private assignmentService: AssignmentService
+  ) {
   }
 
-  ngOnInit() {
+  searchAssignments(ravagoEntityID) {
+    this.assignmentService.searchAssignment(ravagoEntityID).subscribe(assignmentRules => {
+      this.assignmentRules = assignmentRules;
+    })
   }
 
   search() {

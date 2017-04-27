@@ -6,6 +6,7 @@ import {HttpModule} from "@angular/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RouterModule} from "@angular/router";
 import {ApplicationToolbar} from "./application-toolbar/application-toolbar.component";
+import {AuthInterceptor} from "./auth-interceptor/auth-interceptor";
 
 @NgModule({
   imports: [
@@ -22,6 +23,9 @@ import {ApplicationToolbar} from "./application-toolbar/application-toolbar.comp
     HttpModule,
     RouterModule,
     ApplicationToolbar
+  ],
+  providers: [
+    AuthInterceptor
   ]
 })
 export class SharedModule {

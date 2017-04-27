@@ -7,25 +7,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var AssignmentRulesOverviewComponent = (function () {
-    function AssignmentRulesOverviewComponent(commissionService) {
+var AssignmentRulesOverview = (function () {
+    function AssignmentRulesOverview(commissionService, masterDataService) {
         this.commissionService = commissionService;
+        this.masterDataService = masterDataService;
     }
-    AssignmentRulesOverviewComponent.prototype.ngOnInit = function () {
+    AssignmentRulesOverview.prototype.ngOnInit = function () {
         this.getAssigmentRules();
     };
-    AssignmentRulesOverviewComponent.prototype.getAssigmentRules = function () {
+    AssignmentRulesOverview.prototype.getAssigmentRules = function () {
         var _this = this;
+        console.log("get assignment rules");
         this.commissionService.getRules()
-            .subscribe(function (rules) { console.log("getting the data"); _this.rules = rules; console.log(_this.rules.toString + "done"); }, function (error) { return _this.errorMessage = error; });
+            .subscribe(function (rules) {
+            _this.rules = rules;
+        }, function (error) { return _this.errorMessage = error; });
     };
-    return AssignmentRulesOverviewComponent;
+    return AssignmentRulesOverview;
 }());
-AssignmentRulesOverviewComponent = __decorate([
+AssignmentRulesOverview = __decorate([
     core_1.Component({
         selector: 'assignment-rules-overview',
-        templateUrl: 'assignment-rules-overview.html',
-        styleUrls: ['assignment-rules-overview.css']
+        templateUrl: 'assignment-rules-overview.html'
     })
-], AssignmentRulesOverviewComponent);
-exports.AssignmentRulesOverviewComponent = AssignmentRulesOverviewComponent;
+], AssignmentRulesOverview);
+exports.AssignmentRulesOverview = AssignmentRulesOverview;

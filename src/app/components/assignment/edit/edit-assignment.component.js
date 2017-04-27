@@ -7,9 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var commission_back_end_service_1 = require("../commission-back-end.service");
-var EditAssignmentComponent = (function () {
-    function EditAssignmentComponent(commissionService) {
+var commission_back_end_service_1 = require("../../../commission-back-end.service");
+var EditAssignment = (function () {
+    function EditAssignment(commissionService) {
         this.commissionService = commissionService;
         this.orderNumber = "";
         this.orderLineNumber = "";
@@ -17,9 +17,9 @@ var EditAssignmentComponent = (function () {
         this.dataLoaded = 0;
         this.assignmentToEdit = new commission_back_end_service_1.AssignmentImpl();
     }
-    EditAssignmentComponent.prototype.ngOnInit = function () {
+    EditAssignment.prototype.ngOnInit = function () {
     };
-    EditAssignmentComponent.prototype.search = function () {
+    EditAssignment.prototype.search = function () {
         var _this = this;
         console.log("searching" + this.orderNumber + " / " + this.orderLineNumber);
         this.dataLoaded = 0;
@@ -31,7 +31,7 @@ var EditAssignmentComponent = (function () {
             _this.dataLoaded = 1;
         });
     };
-    EditAssignmentComponent.prototype.edit = function () {
+    EditAssignment.prototype.edit = function () {
         var _this = this;
         this.editResponse = "";
         this.errorMessage = "";
@@ -43,13 +43,12 @@ var EditAssignmentComponent = (function () {
             console.log("ERROR : " + _this.errorMessage);
         }, function () { console.log("Done editing"); });
     };
-    return EditAssignmentComponent;
+    return EditAssignment;
 }());
-EditAssignmentComponent = __decorate([
+EditAssignment = __decorate([
     core_1.Component({
-        selector: 'app-edit-assignment',
-        templateUrl: 'edit-assignment.html',
-        styleUrls: ['edit-assignment.css']
+        selector: 'edit-assignment',
+        templateUrl: 'edit-assignment.html'
     })
-], EditAssignmentComponent);
-exports.EditAssignmentComponent = EditAssignmentComponent;
+], EditAssignment);
+exports.EditAssignment = EditAssignment;

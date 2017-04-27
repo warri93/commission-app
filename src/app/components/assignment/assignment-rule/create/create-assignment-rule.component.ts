@@ -1,8 +1,8 @@
 import { Component, OnInit  } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators, FormArray, FormControl} from "@angular/forms";
 
 import { AssignmentRule, CommissionBackEndService, Assignee } from "../../../../commission-back-end.service";
-import { SalesPerson, MasterDataService } from "../../../../master-data.service";
+import { MasterDataService } from "../../../../master-data.service";
 import { RavagoEntityImpl } from "../../../../models/ravago-entity-impl";
 import { RuleDTOimpl } from "../../../../models/create-rule-dto";
 import { AssignmentRuleImpl } from "../../../../models/assignment-rule-impl";
@@ -13,6 +13,7 @@ import { AssigneeImpl } from "../../../../models/assignee-impl";
 import { SalesPersonImpl } from "../../../../models/sales-person-impl";
 
 import {Observable} from 'rxjs/Observable';
+import {SalesPerson} from "../../../../models/salesPerson";
 
 @Component({
   selector: 'create-assignment-rule',
@@ -26,11 +27,28 @@ export class CreateAssignmentRule implements OnInit {
   salesPersons: SalesPerson[] = [];
   public createForm : FormGroup;
 
-  constructor(private commissionService:CommissionBackEndService,private masterDataService :MasterDataService, private _fb: FormBuilder) {
+  newRule: FormGroup;
+
+  constructor(
+    private commissionService:CommissionBackEndService,
+    private masterDataService :MasterDataService,
+    private fb: FormBuilder) {
 
   }
 
   ngOnInit() {
+    this.newRule = this.fb.group({
+      assignmentValues: this.fb.group({
+        period: this.fb.group({
+          startDate: new FormControl(""),
+          endDate: new FormControl("")
+        }),
+        assignees: this.fb.array([
+          this.createAssignee()
+        ])
+      })
+    });
+
     this.entities = [
       new RavagoEntityImpl("533714","MUEHLSTEIN"),
       new RavagoEntityImpl("597612","MUEHLSTEIN CA"),
@@ -57,23 +75,29 @@ export class CreateAssignmentRule implements OnInit {
       err => this.errorMessage = err,
       () => console.log("Done getting  : " + JSON.stringify(this.salesPersons))
     );*/
+  }
 
-    this.createForm = this._fb.group(
-      {
-        legalEntity: ['', [Validators.required, Validators.minLength(5)]],
-        customer: ['',Validators.required],
-        startDate: ['',Validators.required],
-        endDate: [''],
-        salespersons : this._fb.array([
-          this.initSalesPerson()
-        ])
-      }
-    );
+  createAssignee() {
+    return this.fb.group({
+      salesVolumePercentage: new FormControl(""),
+      commissionPercentage: new FormControl(""),
+      salesPerson: new FormControl(new SalesPerson())
+    })
   }
 
   addSalesPerson() {
     const control = <FormArray>this.createForm.controls['salespersons'];
     control.push(this.initSalesPerson());
+  }
+
+  saveRule() {
+    console.log("save refinement");
+    console.log(this.newRule);
+  }
+
+  confirmRule() {
+    console.log("Confirm refinement");
+    console.log(this.newRule);
   }
 
   save(create : FormGroup){
@@ -110,17 +134,17 @@ export class CreateAssignmentRule implements OnInit {
   private diagnostic() { return JSON.stringify(this.model); }
 
   public fillSalesPersons(){
-    var le = this.createForm.get('legalEntity').value;
+    /*var le = this.createForm.get('legalEntity').value;
     var cu = this.createForm.controls['customer'].value;
     this.masterDataService.getSalesPersons(le.reference,cu.reference).subscribe(
       salesPersons => this.salesPersons = salesPersons,
       err => this.errorMessage = err,
       () => console.log("Done getting  : " + JSON.stringify(this.salesPersons))
-    );
+    );*/
   }
 
   private initSalesPerson() {
-    return this._fb.group({
+    return this.fb.group({
       salesperson: [''],
       selectcommission : [''],
       selectSalesVolume : ['']

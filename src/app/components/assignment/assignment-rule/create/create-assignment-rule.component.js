@@ -6,23 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-///<reference path="../../../node_modules/@angular/forms/src/form_builder.d.ts"/>
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var ravago_entity_impl_1 = require("../models/ravago-entity-impl");
-var create_rule_dto_1 = require("../models/create-rule-dto");
-var assignment_rule_impl_1 = require("../models/assignment-rule-impl");
-var customer_impl_1 = require("../models/customer-impl");
-var assignment_value_impl_1 = require("../models/assignment-value-impl");
-var period_impl_1 = require("../models/period-impl");
-var assignee_impl_1 = require("../models/assignee-impl");
-var sales_person_impl_1 = require("../models/sales-person-impl");
-var AssignmentRuleFormComponent = (function () {
-    function AssignmentRuleFormComponent(commissionService, masterDataService, _fb) {
+var ravago_entity_impl_1 = require("../../../../models/ravago-entity-impl");
+var create_rule_dto_1 = require("../../../../models/create-rule-dto");
+var assignment_rule_impl_1 = require("../../../../models/assignment-rule-impl");
+var customer_impl_1 = require("../../../../models/customer-impl");
+var assignment_value_impl_1 = require("../../../../models/assignment-value-impl");
+var period_impl_1 = require("../../../../models/period-impl");
+var assignee_impl_1 = require("../../../../models/assignee-impl");
+var sales_person_impl_1 = require("../../../../models/sales-person-impl");
+var salesPerson_1 = require("../../../../models/salesPerson");
+var CreateAssignmentRule = (function () {
+    function CreateAssignmentRule(commissionService, masterDataService, fb) {
         var _this = this;
         this.commissionService = commissionService;
         this.masterDataService = masterDataService;
-        this._fb = _fb;
+        this.fb = fb;
         this.salesPersons = [];
         this.model = new assignment_rule_impl_1.AssignmentRuleImpl();
         this.searchLegalEntity = function (text$) {
@@ -57,7 +57,18 @@ var AssignmentRuleFormComponent = (function () {
                 }).splice(0, 10); });
         };
     }
-    AssignmentRuleFormComponent.prototype.ngOnInit = function () {
+    CreateAssignmentRule.prototype.ngOnInit = function () {
+        this.newRule = this.fb.group({
+            assignmentValues: this.fb.group({
+                period: this.fb.group({
+                    startDate: new forms_1.FormControl(""),
+                    endDate: new forms_1.FormControl("")
+                }),
+                assignees: this.fb.array([
+                    this.createAssignee()
+                ])
+            })
+        });
         this.entities = [
             new ravago_entity_impl_1.RavagoEntityImpl("533714", "MUEHLSTEIN"),
             new ravago_entity_impl_1.RavagoEntityImpl("597612", "MUEHLSTEIN CA"),
@@ -82,21 +93,27 @@ var AssignmentRuleFormComponent = (function () {
           err => this.errorMessage = err,
           () => console.log("Done getting  : " + JSON.stringify(this.salesPersons))
         );*/
-        this.createForm = this._fb.group({
-            legalEntity: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
-            customer: ['', forms_1.Validators.required],
-            startDate: ['', forms_1.Validators.required],
-            endDate: [''],
-            salespersons: this._fb.array([
-                this.initSalesPerson()
-            ])
+    };
+    CreateAssignmentRule.prototype.createAssignee = function () {
+        return this.fb.group({
+            salesVolumePercentage: new forms_1.FormControl(""),
+            commissionPercentage: new forms_1.FormControl(""),
+            salesPerson: new forms_1.FormControl(new salesPerson_1.SalesPerson())
         });
     };
-    AssignmentRuleFormComponent.prototype.addSalesPerson = function () {
+    CreateAssignmentRule.prototype.addSalesPerson = function () {
         var control = this.createForm.controls['salespersons'];
         control.push(this.initSalesPerson());
     };
-    AssignmentRuleFormComponent.prototype.save = function (create) {
+    CreateAssignmentRule.prototype.saveRule = function () {
+        console.log("save refinement");
+        console.log(this.newRule);
+    };
+    CreateAssignmentRule.prototype.confirmRule = function () {
+        console.log("Confirm refinement");
+        console.log(this.newRule);
+    };
+    CreateAssignmentRule.prototype.save = function (create) {
         var _this = this;
         var ruleDto = new create_rule_dto_1.RuleDTOimpl();
         ruleDto.customer = new customer_impl_1.CustomerImpl(this.createForm.controls['customer'].value.reference, this.createForm.controls['customer'].value.callSign);
@@ -117,27 +134,29 @@ var AssignmentRuleFormComponent = (function () {
         ruleDto.assignmentValues = assignmentValues;
         this.commissionService.createDefaultRule(ruleDto).subscribe(function (response) { console.log("Create rule status : " + response); }, function (err) { return _this.errorMessage = err; }, function () { return console.log("Done"); });
     };
-    AssignmentRuleFormComponent.prototype.diagnostic = function () { return JSON.stringify(this.model); };
-    AssignmentRuleFormComponent.prototype.fillSalesPersons = function () {
-        var _this = this;
-        var le = this.createForm.get('legalEntity').value;
+    CreateAssignmentRule.prototype.diagnostic = function () { return JSON.stringify(this.model); };
+    CreateAssignmentRule.prototype.fillSalesPersons = function () {
+        /*var le = this.createForm.get('legalEntity').value;
         var cu = this.createForm.controls['customer'].value;
-        this.masterDataService.getSalesPersons(le.reference, cu.reference).subscribe(function (salesPersons) { return _this.salesPersons = salesPersons; }, function (err) { return _this.errorMessage = err; }, function () { return console.log("Done getting  : " + JSON.stringify(_this.salesPersons)); });
+        this.masterDataService.getSalesPersons(le.reference,cu.reference).subscribe(
+          salesPersons => this.salesPersons = salesPersons,
+          err => this.errorMessage = err,
+          () => console.log("Done getting  : " + JSON.stringify(this.salesPersons))
+        );*/
     };
-    AssignmentRuleFormComponent.prototype.initSalesPerson = function () {
-        return this._fb.group({
+    CreateAssignmentRule.prototype.initSalesPerson = function () {
+        return this.fb.group({
             salesperson: [''],
             selectcommission: [''],
             selectSalesVolume: ['']
         });
     };
-    return AssignmentRuleFormComponent;
+    return CreateAssignmentRule;
 }());
-AssignmentRuleFormComponent = __decorate([
+CreateAssignmentRule = __decorate([
     core_1.Component({
-        selector: 'assignment-rule-form',
-        templateUrl: 'assignment-rule-form.html',
-        styleUrls: ['assignment-rule-form.css']
+        selector: 'create-assignment-rule',
+        templateUrl: 'create-assignment-rule.html'
     })
-], AssignmentRuleFormComponent);
-exports.AssignmentRuleFormComponent = AssignmentRuleFormComponent;
+], CreateAssignmentRule);
+exports.CreateAssignmentRule = CreateAssignmentRule;

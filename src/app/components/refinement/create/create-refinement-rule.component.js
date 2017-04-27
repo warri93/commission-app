@@ -8,47 +8,77 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var commission_back_end_service_1 = require("../commission-back-end.service");
-var create_refinement_dto_1 = require("../models/create-refinement-dto");
-var assignment_value_impl_1 = require("../models/assignment-value-impl");
-var period_impl_1 = require("../models/period-impl");
-var sales_person_impl_1 = require("../models/sales-person-impl");
-var creator_person_impl_1 = require("../models/creator-person-impl");
-var RefinementRuleFormComponent = (function () {
-    function RefinementRuleFormComponent(masterDataService, commissionService, _fb) {
+var commission_back_end_service_1 = require("../../../commission-back-end.service");
+var create_refinement_dto_1 = require("../../../models/create-refinement-dto");
+var assignment_value_impl_1 = require("../../../models/assignment-value-impl");
+var period_impl_1 = require("../../../models/period-impl");
+var creator_person_impl_1 = require("../../../models/creator-person-impl");
+var address_1 = require("../../../models/address");
+var product_1 = require("../../../models/product");
+var salesPerson_1 = require("../../../models/salesPerson");
+var CreateRefinementRule = (function () {
+    function CreateRefinementRule(masterDataService, commissionService, fb) {
         this.masterDataService = masterDataService;
         this.commissionService = commissionService;
-        this._fb = _fb;
+        this.fb = fb;
+        /*this.newRefinementRuleForm = fb.group({
+         name: fb.group({
+         first: ['Nancy', Validators.minLength(2)],
+         last: 'Drew',
+         }),
+         email: '',
+         });*/
     }
-    RefinementRuleFormComponent.prototype.ngOnInit = function () {
-        this.getAssigmentRules();
-        this.createRefinementForm = this._fb.group({
-            defaultRules: ['', [forms_1.Validators.required]],
-            deliveryAddresses: ['', [forms_1.Validators.required]],
-            productID: [''],
-            periods: this._fb.array([
-                this.initPeriod()
-            ])
+    CreateRefinementRule.prototype.ngOnInit = function () {
+        this.newRefinementRule = this.fb.group({
+            destinationAddress: new forms_1.FormControl(new address_1.Address()),
+            assignmentValues: this.fb.group({
+                period: this.fb.group({
+                    startDate: new forms_1.FormControl(""),
+                    endDate: new forms_1.FormControl("")
+                }),
+                assignees: this.fb.array([
+                    this.createAssignee()
+                ])
+            }),
+            productSpecification: new forms_1.FormControl(new product_1.Product())
         });
     };
-    RefinementRuleFormComponent.prototype.getAssigmentRules = function () {
+    CreateRefinementRule.prototype.createAssignee = function () {
+        return this.fb.group({
+            salesVolumePercentage: new forms_1.FormControl(""),
+            commissionPercentage: new forms_1.FormControl(""),
+            salesPerson: new forms_1.FormControl(new salesPerson_1.SalesPerson())
+        });
+    };
+    CreateRefinementRule.prototype.saveRefinementRule = function () {
+        console.log("save refinement");
+        console.log(this.newRefinementRule);
+    };
+    CreateRefinementRule.prototype.confirmRefinementRule = function () {
+        console.log("Confirm refinement");
+        console.log(this.newRefinementRule);
+    };
+    CreateRefinementRule.prototype.getAssigmentRules = function () {
         var _this = this;
         this.commissionService.getRules()
-            .subscribe(function (rules) { _this.rules = rules; }, function (error) { return _this.errorMessage = error; }),
+            .subscribe(function (rules) {
+            _this.rules = rules;
+        }, function (error) { return _this.errorMessage = error; }),
             function () { return console.log("Done getting data for createrefinements"); };
     };
-    RefinementRuleFormComponent.prototype.setDefault = function () {
+    CreateRefinementRule.prototype.setDefault = function () {
         this.selectedDefault = this.createRefinementForm.controls['defaultRules'].value;
     };
-    RefinementRuleFormComponent.prototype.addSalesPerson = function () {
+    CreateRefinementRule.prototype.addSalesPerson = function () {
         var control = this.createRefinementForm.controls['salespersons'];
-        control.push(this.initSalesPerson());
+        //control.push(this.initSalesPerson());
     };
-    RefinementRuleFormComponent.prototype.addPeriod = function () {
+    CreateRefinementRule.prototype.addPeriod = function () {
         var control = this.createRefinementForm.controls['periods'];
-        control.push(this.initPeriod());
+        //control.push(this.initPeriod());
     };
-    RefinementRuleFormComponent.prototype.create = function () {
+    CreateRefinementRule.prototype.create = function () {
         var _this = this;
         this.response = "";
         this.errorMessage = "";
@@ -79,9 +109,9 @@ var RefinementRuleFormComponent = (function () {
             var salesPersonsToAdd = period.salespersons;
             for (var _a = 0, salesPersonsToAdd_1 = salesPersonsToAdd; _a < salesPersonsToAdd_1.length; _a++) {
                 var sp = salesPersonsToAdd_1[_a];
-                var curSp = new sales_person_impl_1.SalesPersonImpl(sp.salesperson.ID, sp.salesperson.firstName, sp.salesperson.lastName);
-                var currentAssignee = new commission_back_end_service_1.AssigneeImpl(sp.selectSalesVolume, sp.selectcommission, curSp);
-                assignees.push(currentAssignee);
+                //var curSp = new SalesPersonImpl(sp.salesperson.ID, sp.salesperson.firstName, sp.salesperson.lastName);
+                //var currentAssignee = new AssigneeImpl(sp.selectSalesVolume, sp.selectcommission, curSp);
+                //assignees.push(currentAssignee);
             }
             var periodToAdd = new period_impl_1.PeriodImpl(period.startDate, period.endDate);
             var assignmentToAdd = new assignment_value_impl_1.AssignmentValueImpl(periodToAdd, assignees);
@@ -90,45 +120,49 @@ var RefinementRuleFormComponent = (function () {
         refRuleDto.assignmentValues = assignmentValues;
         refRuleDto.creatorPerson = new creator_person_impl_1.CreatorPersonImpl("740607", "Bert", "Huygens");
         console.log(JSON.stringify(refRuleDto));
-        this.commissionService.createRefinementRule(refRuleDto).subscribe(function (response) { _this.response = response; }, function (err) { return _this.errorMessage = err; }, function () {
+        this.commissionService.createRefinementRule(refRuleDto).subscribe(function (response) {
+            _this.response = response;
+        }, function (err) { return _this.errorMessage = err; }, function () {
             console.log("Done");
             _this.createRefinementForm.reset();
         });
     };
-    RefinementRuleFormComponent.prototype.fillDeliveryAddresses = function () {
+    CreateRefinementRule.prototype.fillDeliveryAddresses = function () {
         var _this = this;
         var assignmentRule = this.createRefinementForm.controls['defaultRules'].value;
         this.masterDataService.getDeliveryAddresses(assignmentRule.customer.reference).subscribe(function (addresses) { return _this.addresses = addresses; }, function (err) { return _this.errorMessage = err; }, function () { return console.log("Done getting  : " + JSON.stringify(_this.addresses)); });
     };
-    RefinementRuleFormComponent.prototype.fillSalesPersons = function () {
+    CreateRefinementRule.prototype.fillSalesPersons = function () {
         var _this = this;
         var assignmentRule = this.createRefinementForm.controls['defaultRules'].value;
-        this.masterDataService.getSalesPersons(assignmentRule.ravagoEntity.reference, assignmentRule.customer.reference).subscribe(function (salesPersons) { return _this.salesPersons = salesPersons; }, function (err) { return _this.errorMessage = err; }, function () { return console.log("Done getting  : " + JSON.stringify(_this.salesPersons)); });
+        this.masterDataService.getSalesPersons(assignmentRule.ravagoEntity.reference, assignmentRule.customer.reference).subscribe(
+        //salesPersons => this.salesPersons = salesPersons,
+        //err => this.errorMessage = err,
+        function () { return console.log("Done getting  : " + JSON.stringify(_this.salesPersons)); });
     };
-    RefinementRuleFormComponent.prototype.initPeriod = function () {
-        var formGroup = this._fb.group({
-            startDate: [''],
-            endDate: [''],
-            salespersons: this._fb.array([
-                this.initSalesPerson()
-            ])
-        });
-        return formGroup;
+    CreateRefinementRule.prototype.initPeriod = function () {
+        /*var formGroup = this._fb.group({
+         startDate : [''],
+         endDate : [''],
+         salespersons :this._fb.array([
+         this.initSalesPerson()
+         ])
+         });
+         return formGroup;*/
     };
-    RefinementRuleFormComponent.prototype.initSalesPerson = function () {
-        return this._fb.group({
-            salesperson: [''],
-            selectcommission: [''],
-            selectSalesVolume: ['']
-        });
+    CreateRefinementRule.prototype.initSalesPerson = function () {
+        /*return this._fb.group({
+         salesperson: [''],
+         selectcommission : [''],
+         selectSalesVolume : ['']
+         });*/
     };
-    return RefinementRuleFormComponent;
+    return CreateRefinementRule;
 }());
-RefinementRuleFormComponent = __decorate([
+CreateRefinementRule = __decorate([
     core_1.Component({
-        selector: 'app-refinement-rule-form',
-        templateUrl: 'refinement-rule-form.html',
-        styleUrls: ['refinement-rule-form.css']
+        selector: 'create-refinement-rule',
+        templateUrl: 'create-refinement-rule.html'
     })
-], RefinementRuleFormComponent);
-exports.RefinementRuleFormComponent = RefinementRuleFormComponent;
+], CreateRefinementRule);
+exports.CreateRefinementRule = CreateRefinementRule;

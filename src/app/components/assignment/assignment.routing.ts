@@ -8,6 +8,9 @@ import {CreateAssignmentRule} from "./assignment-rule/create/create-assignment-r
 import {AssignmentRuleDetail} from "./assignment-rule/detail/assignment-rule-detail.component";
 import {SearchAssignmentRule} from "./assignment-rule/search/search-assignment-rule.component";
 import {AssignmentRulesOverview} from "./assignment-rule/assignment-rules-overview.component";
+import {CreateRuleGeneralInfo} from "./assignment-rule/create/general-info/create-rule-general-info.component";
+import {CreateRuleSalesPersons} from "./assignment-rule/create/assigned-sales-persons/create-rule-sales-persons.component";
+import {AssignmentsTable} from "./search/assignments-table.component/assignments-table.component";
 
 const routes: Routes = [
   {
@@ -49,7 +52,10 @@ export const routedComponents = [
   CreateAssignmentRule,
   AssignmentRuleDetail,
   SearchAssignmentRule,
-  AssignmentRulesOverview
+  AssignmentRulesOverview,
+  CreateRuleGeneralInfo,
+  CreateRuleSalesPersons,
+  AssignmentsTable
 ];
 
 export const exportComponents = [

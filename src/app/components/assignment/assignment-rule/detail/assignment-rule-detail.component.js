@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 require("rxjs/Rx");
-var AssignmentRuleDetailComponent = (function () {
-    function AssignmentRuleDetailComponent(route, router, commissionService) {
+var AssignmentRuleDetail = (function () {
+    function AssignmentRuleDetail(route, router, commissionService) {
         this.route = route;
         this.router = router;
         this.commissionService = commissionService;
@@ -17,7 +17,7 @@ var AssignmentRuleDetailComponent = (function () {
         this.dataLoaded = 0;
         this.dataRefinementLoaded = 0;
     }
-    AssignmentRuleDetailComponent.prototype.ngOnInit = function () {
+    AssignmentRuleDetail.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.forEach(function (params) {
             _this.id = params['id'];
@@ -25,26 +25,25 @@ var AssignmentRuleDetailComponent = (function () {
             _this.getRefinements(_this.id);
         });
     };
-    AssignmentRuleDetailComponent.prototype.gotoOverview = function () {
+    AssignmentRuleDetail.prototype.gotoOverview = function () {
         this.router.navigate(['/']);
     };
-    AssignmentRuleDetailComponent.prototype.getRefinements = function (id) {
+    AssignmentRuleDetail.prototype.getRefinements = function (id) {
         var _this = this;
         this.commissionService.getRefinementRules(this.id)
             .subscribe(function (refinementRules) { _this.refinementRules = refinementRules; }, function (err) { return _this.errorMessage = err; }, function () { console.log(_this.refinementRules); _this.dataRefinementLoaded = 1; });
     };
-    AssignmentRuleDetailComponent.prototype.getRule = function (id) {
+    AssignmentRuleDetail.prototype.getRule = function (id) {
         var _this = this;
         this.commissionService.getRule(id)
             .subscribe(function (assignmentRule) { console.log(assignmentRule); _this.rule = assignmentRule; _this.dataLoaded = 1; }, function (err) { return _this.errorMessage = err; }, function () { console.log("DONE?DONE"); });
     };
-    return AssignmentRuleDetailComponent;
+    return AssignmentRuleDetail;
 }());
-AssignmentRuleDetailComponent = __decorate([
+AssignmentRuleDetail = __decorate([
     core_1.Component({
-        selector: 'app-assignment-rule-detail',
-        templateUrl: 'assignment-rule-detail.html',
-        styleUrls: ['assignment-rule-detail.css']
+        selector: 'assignment-rule-detail',
+        templateUrl: 'assignment-rule-detail.html'
     })
-], AssignmentRuleDetailComponent);
-exports.AssignmentRuleDetailComponent = AssignmentRuleDetailComponent;
+], AssignmentRuleDetail);
+exports.AssignmentRuleDetail = AssignmentRuleDetail;

@@ -21,8 +21,6 @@ import {SalesPerson} from "../../../models/salesPerson";
   templateUrl: 'create-refinement-rule.html'
 })
 export class CreateRefinementRule implements OnInit {
-  newRefinementRuleForm: FormGroup;
-
   public rules: AssignmentRule[];
   public salesPersons: SalesPerson[];
   public addresses: DeliveryAddress[];
@@ -206,5 +204,4 @@ export class CreateRefinementRule implements OnInit {
      selectSalesVolume : ['']
      });*/
   }
-
 }

@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var salesPerson_1 = require("../../../../models/salesPerson");
 var forms_1 = require("@angular/forms");
-var CreateRefinementRuleSalesPersons = (function () {
-    function CreateRefinementRuleSalesPersons(fb) {
+var salesPerson_1 = require("../../../../../models/salesPerson");
+var CreateRuleSalesPersons = (function () {
+    function CreateRuleSalesPersons(fb) {
         var _this = this;
         this.fb = fb;
         this.searchSalesPerson = function (text$) {
@@ -25,7 +25,7 @@ var CreateRefinementRuleSalesPersons = (function () {
         };
         this.formatSalesPerson = function (x) { return x.firstName + " " + x.familyName; };
     }
-    CreateRefinementRuleSalesPersons.prototype.ngOnInit = function () {
+    CreateRuleSalesPersons.prototype.ngOnInit = function () {
         this.salesPersons = [
             {
                 "reference": "113047",
@@ -44,50 +44,50 @@ var CreateRefinementRuleSalesPersons = (function () {
             }
         ];
     };
-    CreateRefinementRuleSalesPersons.prototype.addSalesPerson = function () {
-        var control = this.newRefinementRule.get('assignmentValues').get('assignees');
+    CreateRuleSalesPersons.prototype.addSalesPerson = function () {
+        var control = this.newRule.get('assignmentValues').get('assignees');
         control.push(this.createAssignee());
     };
-    CreateRefinementRuleSalesPersons.prototype.deleteSalesPerson = function (index) {
-        var assignees = this.newRefinementRule.get('assignmentValues').get('assignees');
+    CreateRuleSalesPersons.prototype.deleteSalesPerson = function (index) {
+        var assignees = this.newRule.get('assignmentValues').get('assignees');
         assignees.removeAt(index);
-        console.log(this.newRefinementRule.get('assignmentValues').get('assignees').value);
+        console.log(this.newRule.get('assignmentValues').get('assignees').value);
     };
-    CreateRefinementRuleSalesPersons.prototype.salesPersonSelected = function (item, index) {
-        this.newRefinementRule.get('assignmentValues').get('assignees').value[index].salesPerson = item.item;
+    CreateRuleSalesPersons.prototype.salesPersonSelected = function (item, index) {
+        this.newRule.get('assignmentValues').get('assignees').value[index].salesPerson = item.item;
     };
-    CreateRefinementRuleSalesPersons.prototype.createAssignee = function () {
+    CreateRuleSalesPersons.prototype.createAssignee = function () {
         return this.fb.group({
             salesVolumePercentage: new forms_1.FormControl(""),
             commissionPercentage: new forms_1.FormControl(""),
             salesPerson: new forms_1.FormControl(new salesPerson_1.SalesPerson())
         });
     };
-    CreateRefinementRuleSalesPersons.prototype.recalculateCommissionTotal = function () {
+    CreateRuleSalesPersons.prototype.recalculateCommissionTotal = function () {
         var commissionPercentage = 0;
-        var assignees = this.newRefinementRule.get('assignmentValues').get('assignees').value;
+        var assignees = this.newRule.get('assignmentValues').get('assignees').value;
         assignees.forEach(function (assignee) {
             commissionPercentage += assignee.commissionPercentage;
         });
         this.commissionTotal = commissionPercentage / 100;
     };
-    CreateRefinementRuleSalesPersons.prototype.recalculateSalesVolumeTotal = function () {
+    CreateRuleSalesPersons.prototype.recalculateSalesVolumeTotal = function () {
         var salesVolumePercentage = 0;
-        var assignees = this.newRefinementRule.get('assignmentValues').get('assignees').value;
+        var assignees = this.newRule.get('assignmentValues').get('assignees').value;
         assignees.forEach(function (assignee) {
             salesVolumePercentage += assignee.salesVolumePercentage;
         });
         this.salesVolumeTotal = salesVolumePercentage / 100;
     };
-    return CreateRefinementRuleSalesPersons;
+    return CreateRuleSalesPersons;
 }());
 __decorate([
     core_1.Input()
-], CreateRefinementRuleSalesPersons.prototype, "newRefinementRule", void 0);
-CreateRefinementRuleSalesPersons = __decorate([
+], CreateRuleSalesPersons.prototype, "newRule", void 0);
+CreateRuleSalesPersons = __decorate([
     core_1.Component({
-        selector: 'create-refinement-rule-sales-persons',
-        templateUrl: 'create-refinement-rule-sales-persons.html'
+        selector: 'create-rule-sales-persons',
+        templateUrl: 'create-rule-sales-persons.html'
     })
-], CreateRefinementRuleSalesPersons);
-exports.CreateRefinementRuleSalesPersons = CreateRefinementRuleSalesPersons;
+], CreateRuleSalesPersons);
+exports.CreateRuleSalesPersons = CreateRuleSalesPersons;

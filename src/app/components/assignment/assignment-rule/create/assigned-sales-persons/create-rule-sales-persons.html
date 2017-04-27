@@ -1,0 +1,135 @@
+<template #salesPersonTemplate let-sp="result" let-sp="term">
+  {{sp.firstName}} {{sp.familyName}}
+</template>
+
+<div class="form-set" [formGroup]="newRule">
+  <div class="col-m-12">
+    <div formGroupName="assignmentValues">
+      <div formArrayName="assignees">
+        <div
+          *ngFor="let control of newRule.controls.assignmentValues.controls.assignees.controls; let i = index"
+          [formGroupName]="i">
+          <div class="grid-row grid-gutter">
+            <div class="col-m-4 col-l-4 offset-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Sales Person *</span>
+                </div>
+                <div class="input">
+                  <input id="typeahead-search-sales-person"
+                         type="text"
+                         class="form-control"
+                         (selectItem)="salesPersonSelected($event, i)"
+                         [ngbTypeahead]="searchSalesPerson"
+                         [resultTemplate]="salesPersonTemplate"
+                         [inputFormatter]="formatSalesPerson"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-2 col-l-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Sales Volume % *</span>
+                </div>
+                <div class="input">
+                  <input id="input-sales-volume-percentage"
+                         name="sales-volume-percentage"
+                         type="number"
+                         formControlName="salesVolumePercentage"
+                         class="form-control"
+                         (blur)="recalculateSalesVolumeTotal()"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-2 col-l-2">
+              <div class="form-field-set">
+                <div class="label">
+                  <span>Commission % *</span>
+                </div>
+                <div class="input">
+                  <input id="input-commission-percentage"
+                         name="commission-percentage"
+                         type="number"
+                         formControlName="commissionPercentage"
+                         class="form-control"
+                         (blur)="recalculateCommissionTotal()"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-m-1 col-l-1">
+              <div class="form-field-set">
+                <div class="label">
+
+                </div>
+                <button class="button button-default button-icon button-large" (click)="deleteSalesPerson(i)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-row grid-gutter">
+        <div class="col-m-1 col-l-1 offset-1">
+          <div class="form-field-set">
+            <div class="label">
+
+            </div>
+            <button class="button button-default button-icon button-large group-align-right" (click)="addSalesPerson()">
+              <i class="blue-Add"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-m-1 col-l-1 offset-3">
+          <div class="form-field-set">
+            <div class="label">
+
+            </div>
+
+            <div class="group-align-right">
+              <span>Totals:</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-m-2 col-l-2">
+          <div class="form-field-set">
+            <div class="label">
+
+            </div>
+            <input class="form-input state-warning"
+                   type="text"
+                   [ngModel]="salesVolumeTotal | percent"
+                   [ngModelOptions]="{standalone: true}"
+                   [disabled]="true"
+                   [ngClass]="{
+                   'state-success': salesVolumeTotal === 1,
+                   'state-error':  !salesVolumeTotal || salesVolumeTotal < 1 || salesVolumeTotal > 1}">
+          </div>
+        </div>
+
+        <div class="col-m-2 col-l-2">
+          <div class="form-field-set">
+            <div class="label">
+
+            </div>
+            <input class="form-input"
+                   type="text"
+                   [ngModel]="commissionTotal | percent"
+                   [ngModelOptions]="{standalone: true}"
+                   [disabled]="true"
+                   [ngClass]="{
+                   'state-success': commissionTotal === 1,
+                   'state-error':  !commissionTotal || commissionTotal < 1,
+                   'state-warning': commissionTotal > 1}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

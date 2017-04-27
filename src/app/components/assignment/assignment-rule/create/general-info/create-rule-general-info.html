@@ -1,0 +1,103 @@
+<div class="form-set" [formGroup]="newRule">
+  <div class="grid-row grid-gutter gutter-top gutter-bottom">
+    <div class="col-m-12">
+      <!-- Legal : Start -->
+      <div class="grid-row grid-gutter">
+        <div class="col-m-4 col-l-4 offset-2">
+          <div class="form-field-set">
+            <div class="label">
+              <span>Legal Entity</span>
+            </div>
+            <div class="input">
+              <!--<input id="typeahead-search-legal-entity"
+                     name="legalEntity"
+                     type="text"
+                     class="form-control"
+                     [(ngModel)]="legalEntity"
+                     [ngbTypeahead]="searchLegalEntity"
+                     [resultTemplate]="entityTemplate"
+                     [inputFormatter]="formatEntity"
+                     (selectItem)="legalEntitySelected()"/>-->
+              <input class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-m-4 col-l-4">
+          <div class="form-field-set">
+            <div class="label">
+              <span>Customer</span>
+            </div>
+            <div class="input">
+              <!--<input id="typeahead-search-customer"
+                     name="customer"
+                     type="text"
+                     class="form-control"
+                     [(ngModel)]="customer"
+                     [ngbTypeahead]="searchCustomer"
+                     [resultTemplate]="entityTemplate"
+                     [inputFormatter]="formatEntity"/>-->
+              <input class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Legal : End -->
+
+      <!-- Customer : Start -->
+      <div class="grid-row grid-gutter" formGroupName="assignmentValues">
+        <div class="col-m-2 col-l-2 offset-2" formGroupName="period">
+          <div class="form-field-set">
+            <div class="label">
+              <span>Valid Period From *</span>
+            </div>
+            <div class="input">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="startDate"
+                       ngbDatepicker #validDateFromDatePicker="ngbDatepicker">
+                <div class="input-group-addon" (click)="validDateFromDatePicker.toggle()">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-m-2 col-l-2" formGroupName="period">
+          <div class="form-field-set">
+            <div class="label">
+              <span>Valid Period To</span>
+            </div>
+            <div class="input">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="endDate"
+                       ngbDatepicker #validDateToDatePicker="ngbDatepicker">
+                <div class="input-group-addon" (click)="validDateToDatePicker.toggle()">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-m-4 col-l-4">
+          <div class="form-field-set">
+            <div class="label">
+              <span>Order Owner</span>
+            </div>
+            <div class="input">
+              <!--<input id="typeahead-order-owner"
+                     name="orderOwner"
+                     type="text"
+                     class="form-control"
+                     [disabled]="!legalEntity || !customer"
+                     [(ngModel)]="salesPerson"/>-->
+              <input class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Customer : End -->
+  </div>
+</div>

@@ -2,6 +2,7 @@ import {Headers} from "@angular/http";
 
 export const environment = {
   production: true,
+  COMMISSION_BACKEND_URL: "/commission-app/sales/commission/1_0/",
   COMMISSION_PUBLIC_MULE_URL: "10.3.11.2:20000/public/",
   OHM_MASTERDATA_URL: "10.3.11.2:20000/ohm-pcr1004-SNAPSHOT/servicecatalog/masterData/3_0/",
   HEADERS: new Headers({     'Content-Type': 'application/json',

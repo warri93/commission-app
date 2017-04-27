@@ -7,17 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var PageNotFound = (function () {
-    function PageNotFound() {
+var shared_module_1 = require("../shared/shared.module");
+var default_pages_routing_1 = require("./default-pages.routing");
+var DefaultPagesModule = (function () {
+    function DefaultPagesModule() {
     }
-    PageNotFound.prototype.ngOnInit = function () {
-    };
-    return PageNotFound;
+    return DefaultPagesModule;
 }());
-PageNotFound = __decorate([
-    core_1.Component({
-        selector: 'page-not-found',
-        templateUrl: 'page-not-found.html'
+DefaultPagesModule = __decorate([
+    core_1.NgModule({
+        imports: [shared_module_1.SharedModule],
+        declarations: [default_pages_routing_1.routedComponents],
+        exports: [default_pages_routing_1.exportComponents]
     })
-], PageNotFound);
-exports.PageNotFound = PageNotFound;
+], DefaultPagesModule);
+exports.DefaultPagesModule = DefaultPagesModule;

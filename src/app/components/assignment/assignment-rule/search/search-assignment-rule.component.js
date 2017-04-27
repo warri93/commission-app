@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var search_criteria_1 = require("../../../models/search-criteria");
-var ravago_entity_impl_1 = require("../../../models/ravago-entity-impl");
-var customer_impl_1 = require("../../../models/customer-impl");
-var sales_person_impl_1 = require("../../../models/sales-person-impl");
-var SearchComponent = (function () {
-    function SearchComponent(commissionService) {
+var ravago_entity_impl_1 = require("../../../../models/ravago-entity-impl");
+var customer_impl_1 = require("../../../../models/customer-impl");
+var sales_person_impl_1 = require("../../../../models/sales-person-impl");
+var search_criteria_1 = require("../../../../models/search-criteria");
+var SearchAssignmentRule = (function () {
+    function SearchAssignmentRule(commissionService) {
         var _this = this;
         this.commissionService = commissionService;
         this.currentLegalEntity = null;
@@ -54,7 +54,7 @@ var SearchComponent = (function () {
         };
         this.formatSalesPerson = function (x) { return x.firstName + " " + x.familyName; };
     }
-    SearchComponent.prototype.ngOnInit = function () {
+    SearchAssignmentRule.prototype.ngOnInit = function () {
         this.entities = [
             new ravago_entity_impl_1.RavagoEntityImpl("597612", "MUEHLSTEIN CA"),
             new ravago_entity_impl_1.RavagoEntityImpl("515785", "CPA")
@@ -87,7 +87,7 @@ var SearchComponent = (function () {
             new sales_person_impl_1.SalesPersonImpl("113040", "Stuart", "Portman")
         ];
     };
-    SearchComponent.prototype.addLegalEntity = function () {
+    SearchAssignmentRule.prototype.addLegalEntity = function () {
         if (this.currentLegalEntity.reference != "") {
             console.log("adding" + this.currentLegalEntity.reference);
             this.model.legalEntity.push(this.currentLegalEntity);
@@ -95,29 +95,29 @@ var SearchComponent = (function () {
             this.currentLegalEntity = null;
         }
     };
-    SearchComponent.prototype.addCustomer = function () {
+    SearchAssignmentRule.prototype.addCustomer = function () {
         if (this.currentCustomer.reference != "") {
             this.model.customer.push(this.currentCustomer);
             this.currentCustomer = null;
         }
     };
-    SearchComponent.prototype.addSalesPerson = function () {
+    SearchAssignmentRule.prototype.addSalesPerson = function () {
         if (this.currentSalesPerson.reference != "") {
             this.model.salesperson.push(this.currentSalesPerson);
             this.currentSalesPerson = null;
         }
     };
-    SearchComponent.prototype.addTargetDate = function () {
+    SearchAssignmentRule.prototype.addTargetDate = function () {
         if (this.currentTargetDate != "") {
             this.model.targetDate = this.currentTargetDate;
             this.currentTargetDate = "";
         }
     };
-    SearchComponent.prototype.clearAll = function () {
+    SearchAssignmentRule.prototype.clearAll = function () {
         this.model = new search_criteria_1.SearchCriteria();
         this.results = [];
     };
-    SearchComponent.prototype.search = function () {
+    SearchAssignmentRule.prototype.search = function () {
         console.log("searching");
         /*this.commissionService.searchRules(this.model).subscribe(
          rules => this.results = rules,
@@ -125,13 +125,12 @@ var SearchComponent = (function () {
          () => console.log("DONE")
          )*/
     };
-    return SearchComponent;
+    return SearchAssignmentRule;
 }());
-SearchComponent = __decorate([
+SearchAssignmentRule = __decorate([
     core_1.Component({
-        selector: 'app-search',
-        templateUrl: 'search.html',
-        styleUrls: ['search.css']
+        selector: 'search-assignment-rule',
+        templateUrl: 'search-assignment-rule.html'
     })
-], SearchComponent);
-exports.SearchComponent = SearchComponent;
+], SearchAssignmentRule);
+exports.SearchAssignmentRule = SearchAssignmentRule;

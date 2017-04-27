@@ -7,7 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var search_component_1 = require("./search/search.component");
+var master_data_service_1 = require("../master-data.service");
+var commission_back_end_service_1 = require("../commission-back-end.service");
+var shared_module_1 = require("./shared/shared.module");
+var assignment_module_1 = require("./assignment/assignment.module");
+var refinement_module_1 = require("./refinement/refinement.module");
+var default_pages_module_1 = require("./default-pages/default-pages.module");
 var ComponentsModule = (function () {
     function ComponentsModule() {
     }
@@ -15,8 +20,15 @@ var ComponentsModule = (function () {
 }());
 ComponentsModule = __decorate([
     core_1.NgModule({
-        declarations: [
-            search_component_1.SearchComponent
+        imports: [
+            shared_module_1.SharedModule,
+            default_pages_module_1.DefaultPagesModule,
+            assignment_module_1.AssignmentModule,
+            refinement_module_1.RefinementModule
+        ],
+        providers: [
+            master_data_service_1.MasterDataService,
+            commission_back_end_service_1.CommissionBackEndService
         ]
     })
 ], ComponentsModule);

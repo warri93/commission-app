@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SearchassignmentComponent = (function () {
-    function SearchassignmentComponent(commissionService) {
+var SearchAssignment = (function () {
+    function SearchAssignment(commissionService) {
         this.commissionService = commissionService;
         this.orderNumber = "";
         this.orderLineNumber = "";
@@ -16,9 +16,9 @@ var SearchassignmentComponent = (function () {
         this.results = [];
         this.dataLoaded = 0;
     }
-    SearchassignmentComponent.prototype.ngOnInit = function () {
+    SearchAssignment.prototype.ngOnInit = function () {
     };
-    SearchassignmentComponent.prototype.search = function () {
+    SearchAssignment.prototype.search = function () {
         var _this = this;
         console.log("searching" + this.orderNumber + " / " + this.orderLineNumber);
         this.dataLoaded = 0;
@@ -30,7 +30,7 @@ var SearchassignmentComponent = (function () {
             _this.dataLoaded = 1;
         });
     };
-    SearchassignmentComponent.prototype.relinkOrder = function () {
+    SearchAssignment.prototype.relinkOrder = function () {
         var _this = this;
         console.log("relink");
         this.commissionService.relink(this.relinkOrderNumber, this.relinkOrderLineNumber).subscribe(function (response) { return _this.relinkResponse = response; }, function (err) {
@@ -40,18 +40,17 @@ var SearchassignmentComponent = (function () {
             console.log("DONE RELINKING ORDER");
         });
     };
-    SearchassignmentComponent.prototype.clear = function () {
+    SearchAssignment.prototype.clear = function () {
         this.results = [];
         this.orderNumber = "";
         this.orderLineNumber = "";
     };
-    return SearchassignmentComponent;
+    return SearchAssignment;
 }());
-SearchassignmentComponent = __decorate([
+SearchAssignment = __decorate([
     core_1.Component({
-        selector: 'app-searchassignment',
-        templateUrl: 'searchassignment.html',
-        styleUrls: ['searchassignment.css']
+        selector: 'search-assignment',
+        templateUrl: 'search-assignment.html'
     })
-], SearchassignmentComponent);
-exports.SearchassignmentComponent = SearchassignmentComponent;
+], SearchAssignment);
+exports.SearchAssignment = SearchAssignment;

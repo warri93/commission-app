@@ -7,24 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SalesPersonComponent = (function () {
-    function SalesPersonComponent() {
+var shared_module_1 = require("../shared/shared.module");
+var assignment_routing_1 = require("./assignment.routing");
+var AssignmentModule = (function () {
+    function AssignmentModule() {
     }
-    SalesPersonComponent.prototype.ngOnInit = function () {
-    };
-    return SalesPersonComponent;
+    return AssignmentModule;
 }());
-__decorate([
-    core_1.Input('group')
-], SalesPersonComponent.prototype, "salesPersonForm", void 0);
-__decorate([
-    core_1.Input('salespersonlist')
-], SalesPersonComponent.prototype, "salespersonslist", void 0);
-SalesPersonComponent = __decorate([
-    core_1.Component({
-        selector: 'app-sales-person',
-        templateUrl: './sales-person.html',
-        styleUrls: ['./sales-person.css']
+AssignmentModule = __decorate([
+    core_1.NgModule({
+        imports: [assignment_routing_1.AssignmentRoutingModule, shared_module_1.SharedModule],
+        declarations: [assignment_routing_1.routedComponents],
+        exports: [assignment_routing_1.exportComponents]
     })
-], SalesPersonComponent);
-exports.SalesPersonComponent = SalesPersonComponent;
+], AssignmentModule);
+exports.AssignmentModule = AssignmentModule;
