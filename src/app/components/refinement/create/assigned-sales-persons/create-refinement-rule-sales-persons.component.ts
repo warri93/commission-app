@@ -13,6 +13,8 @@ export class CreateRefinementRuleSalesPersons implements OnInit {
   newRefinementRule;
 
   salesPersons: SalesPerson[];
+  salesVolumeTotal: number;
+  commissionTotal: number;
 
   constructor(private fb: FormBuilder) {
 
@@ -55,11 +57,43 @@ export class CreateRefinementRuleSalesPersons implements OnInit {
     control.push(this.createAssignee());
   }
 
+  deleteSalesPerson(index) {
+    const assignees = this.newRefinementRule.get('assignmentValues').get('assignees') as FormArray;
+    assignees.removeAt(index);
+    console.log(this.newRefinementRule.get('assignmentValues').get('assignees').value);
+  }
+
+  salesPersonSelected(item, index) {
+    this.newRefinementRule.get('assignmentValues').get('assignees').value[index].salesPerson = item.item;
+  }
+
   createAssignee() {
     return this.fb.group({
       salesVolumePercentage: new FormControl(""),
       commissionPercentage: new FormControl(""),
       salesPerson: new FormControl(new SalesPerson())
     })
+  }
+
+  recalculateCommissionTotal() {
+    let commissionPercentage = 0;
+
+    let assignees = this.newRefinementRule.get('assignmentValues').get('assignees').value;
+    assignees.forEach(function(assignee) {
+      commissionPercentage += assignee.commissionPercentage
+    });
+
+    this.commissionTotal = commissionPercentage / 100;
+  }
+
+  recalculateSalesVolumeTotal() {
+    let salesVolumePercentage = 0;
+
+    let assignees = this.newRefinementRule.get('assignmentValues').get('assignees').value;
+    assignees.forEach(function(assignee) {
+      salesVolumePercentage += assignee.salesVolumePercentage
+    });
+
+    this.salesVolumeTotal = salesVolumePercentage / 100;
   }
 }

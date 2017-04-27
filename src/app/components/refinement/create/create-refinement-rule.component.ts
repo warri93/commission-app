@@ -73,6 +73,11 @@ export class CreateRefinementRule implements OnInit {
     console.log(this.newRefinementRule);
   }
 
+  confirmRefinementRule() {
+    console.log("Confirm refinement");
+    console.log(this.newRefinementRule);
+  }
+
   getAssigmentRules() {
     this.commissionService.getRules()
       .subscribe(

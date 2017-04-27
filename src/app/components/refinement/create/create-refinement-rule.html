@@ -11,13 +11,15 @@
           <button class="button button-white-outline action-primary"
                   id="button_save"
                   tabindex="5"
-                  [disabled]="newRefinementRule.invalid"
                   (click)="saveRefinementRule()">
             <i class="fa fa-floppy-o"></i>
             Save
           </button>
 
-          <button class="button button-default action-primary" id="button_confirm" tabindex="5"><i
+          <button class="button button-default action-primary"
+                  id="button_confirm"
+                  tabindex="5"
+                  (click)="confirmRefinementRule()"><i
             class="blue-Checked"></i> Confirm
           </button>
         </div>
