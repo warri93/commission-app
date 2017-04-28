@@ -26,11 +26,11 @@ export class AssignmentRuleDetail implements OnInit {
 
 
   ngOnInit() {
-    this.route.params.forEach((params:Params) => {
+    /*this.route.params.forEach((params:Params) => {
       this.id = params['id'];
       this.getRule(this.id);
       this.getRefinements(this.id)
-    });
+    });*/
   }
 
   gotoOverview(){
@@ -46,11 +46,11 @@ export class AssignmentRuleDetail implements OnInit {
 
   }
 
-  getRule(id:string) {
+  /*getRule(id:string) {
     this.commissionService.getRule(id)
       .subscribe(
         assignmentRule => {console.log(assignmentRule); this.rule = assignmentRule;this.dataLoaded = 1;},
         err => this.errorMessage = err,
         () => { console.log("DONE?DONE");})
-  }
+  }*/
 }
