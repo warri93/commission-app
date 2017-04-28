@@ -3,6 +3,7 @@ import {MasterDataService} from "../../../../master-data.service";
 import {Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {RavagoEntity} from "../../../../models/ravago-entity";
+import {Customer} from "../../../../models/customer";
 
 @Component({
   selector: 'create-refinement-rule-general-info',
@@ -26,6 +27,10 @@ export class CreateRefinementRuleGeneralInfo implements OnInit {
 
   ravagoEntityChanged(event) {
     this.newRefinementRule.value.ravagoEntity = new RavagoEntity(event.ID, event.callSign);
+  }
+
+  customerChanged(event) {
+    this.newRefinementRule.value.customer = new Customer(event.ID, event.callSign);
   }
 
   getLegalEntities() {

@@ -6,7 +6,7 @@
         <div class="col-m-4 col-l-4 offset-2">
           <div class="form-field-set">
             <div class="label">
-              <span>Legal Entity</span>
+              <span>Legal Entity *</span>
             </div>
             <div class="input">
               <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)" [form]="newRefinementRule"></ravago-entity-dropdown>
@@ -17,18 +17,10 @@
         <div class="col-m-4 col-l-4">
           <div class="form-field-set">
             <div class="label">
-              <span>Customer</span>
+              <span>Customer *</span>
             </div>
             <div class="input">
-              <!--<input id="typeahead-search-customer"
-                     name="customer"
-                     type="text"
-                     class="form-control"
-                     [(ngModel)]="customer"
-                     [ngbTypeahead]="searchCustomer"
-                     [resultTemplate]="entityTemplate"
-                     [inputFormatter]="formatEntity"/>-->
-              <input class="form-control">
+              <customer-dropdown (customerChanged)="customerChanged($event)" [form]="newRefinementRule"></customer-dropdown>
             </div>
           </div>
         </div>
@@ -57,7 +49,7 @@
         <div class="col-m-2 col-l-2" formGroupName="period">
           <div class="form-field-set">
             <div class="label">
-              <span>Valid Period To</span>
+              <span>Valid Period To *</span>
             </div>
             <div class="input">
               <div class="input-group">
