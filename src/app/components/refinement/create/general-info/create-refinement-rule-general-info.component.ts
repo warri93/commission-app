@@ -18,7 +18,9 @@ export class CreateRefinementRuleGeneralInfo implements OnInit {
 
   constructor(
     private masterDataService: MasterDataService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.getLegalEntities();

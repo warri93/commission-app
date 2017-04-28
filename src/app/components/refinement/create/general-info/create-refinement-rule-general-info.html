@@ -28,35 +28,53 @@
       <!-- Legal : End -->
 
       <!-- Customer : Start -->
-      <div class="grid-row grid-gutter" formGroupName="assignmentValues">
-        <div class="col-m-2 col-l-2 offset-2" formGroupName="period">
+      <div class="grid-row grid-gutter" [formGroup]="newRefinementRule.controls.assignmentValues.controls.period">
+        <div class="col-m-2 col-l-2 offset-2">
           <div class="form-field-set">
             <div class="label">
               <span>Valid Period From *</span>
             </div>
             <div class="input">
               <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="startDate"
-                       ngbDatepicker #validDateFromDatePicker="ngbDatepicker">
+                <input class="form-control"
+                       placeholder="yyyy-mm-dd"
+                       formControlName="startDate"
+                       ngbDatepicker
+                       #validDateFromDatePicker="ngbDatepicker"
+                       [class.errors]="startDate.hasError('*', ['touched'])">
                 <div class="input-group-addon" (click)="validDateFromDatePicker.toggle()">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div ngxErrors="startDate" #startDate="ngxErrors">
+                <div class="error" ngxError="required" [when]="['touched']">
+                  Start date is required
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-m-2 col-l-2" formGroupName="period">
+        <div class="col-m-2 col-l-2">
           <div class="form-field-set">
             <div class="label">
               <span>Valid Period To *</span>
             </div>
             <div class="input">
               <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="endDate"
-                       ngbDatepicker #validDateToDatePicker="ngbDatepicker">
+                <input class="form-control"
+                       placeholder="yyyy-mm-dd"
+                       formControlName="endDate"
+                       ngbDatepicker
+                       #validDateToDatePicker="ngbDatepicker"
+                       [class.errors]="startDate.hasError('*', ['touched'])">
                 <div class="input-group-addon" (click)="validDateToDatePicker.toggle()">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div ngxErrors="endDate" #endDate="ngxErrors">
+                <div class="error" ngxError="required" [when]="['touched']">
+                  End date is required
                 </div>
               </div>
             </div>

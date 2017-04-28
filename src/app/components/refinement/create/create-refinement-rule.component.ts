@@ -51,8 +51,8 @@ export class CreateRefinementRule implements OnInit {
       destinationAddress: new FormControl(new Address()),
       assignmentValues: this.fb.group({
         period: this.fb.group({
-          startDate: new FormControl(""),
-          endDate: new FormControl("")
+          startDate: new FormControl("", Validators.required),
+          endDate: new FormControl("", Validators.required)
         }),
         assignees: this.fb.array([
           this.createAssignee()
