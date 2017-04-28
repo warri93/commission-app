@@ -42,7 +42,7 @@
                 <span><i class="blue-Info"></i> General info</span>
               </template>
               <template ngbPanelContent>
-                <create-rule-general-info [newRule]="newRule"></create-rule-general-info>
+                <create-rule-general-info [newRule]="newRule" (formChanged)="formChanged($event)"></create-rule-general-info>
               </template>
             </ngb-panel>
 

@@ -1,6 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Observable} from "rxjs";
-import {FormControl} from "@angular/forms";
+import {FormControl, FormGroup} from '@angular/forms';
 import {MasterDataService} from "../../../../../master-data.service";
 import {RavagoEntity} from "../../../../../models/ravago-entity";
 import {Customer} from "../../../../../models/customer";
@@ -15,6 +15,9 @@ export class CreateRuleGeneralInfo implements OnInit {
 
   @Input()
   newRule;
+
+  @Output()
+  formChanged = new EventEmitter();
 
   constructor(
     private masterDataService: MasterDataService
@@ -47,8 +50,20 @@ export class CreateRuleGeneralInfo implements OnInit {
           v.name.toLowerCase().startsWith(term.toLocaleLowerCase())
         ).splice(0, 10));
 
-  ravagoEntityChanged(event) {
-    this.newRule.value.ravagoEntity = new RavagoEntity(event.ID, event.callSign);
+  ravagoEntityChanged(item) {
+    console.log(item);
+    /*this.newRule.controls['ravagoEntity'].setValue(null);*/
+    //this.newRule.controls.ravagoEntity.patchValue(item);
+    this.newRule.controls.ravagoEntity.patchValue({reference: item.reference, callSign: item.callSign});
+    console.log(this.newRule.controls.ravagoEntity);
+    /*(this.newRule.controls.ravagoEntity).setValue(ravagoEntity);
+    console.log(this.newRule);
+    this.formChanged.emit(this.newRule);*/
+   /* let ravagoEntity = this.newRule.value.ravagoEntity as FormControl;
+    console.log(ravagoEntity);
+    ravagoEntity.setValue(new RavagoEntity(event.ID, event.callSign));*/
+    /*this.newRule.value.ravagoEntity.value = new RavagoEntity(event.ID, event.callSign);
+    console.log(this.newRule.value.ravagoEntity);*/
   }
 
   customerChanged(event) {

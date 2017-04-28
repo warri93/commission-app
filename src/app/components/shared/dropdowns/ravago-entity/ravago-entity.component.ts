@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {MasterDataService} from "../../../../master-data.service";
 
 import {Observable} from "rxjs";
+import {RavagoEntity} from "../../../../models/ravago-entity";
 
 @Component({
   selector: 'ravago-entity-dropdown',
@@ -29,7 +30,6 @@ export class RavagoEntityDropdown implements OnInit{
   getLegalEntities() {
     this.masterDataService.getLegalEntities().subscribe(legalEntities => {
       this.legalEntities = legalEntities;
-      console.log(this.legalEntities);
     })
   }
 
@@ -40,15 +40,12 @@ export class RavagoEntityDropdown implements OnInit{
       .map(term => term.length < 1 ? []
         : this.legalEntities.filter(v =>
           v.callSign.toLowerCase().startsWith(term.toLocaleLowerCase()) ||
-          v.ID.toLowerCase().startsWith(term.toLocaleLowerCase()) ||
-          (v.localName ? v.localName.toLowerCase().startsWith(term.toLocaleLowerCase()) : '') ||
-          v.name.toLowerCase().startsWith(term.toLocaleLowerCase())
+          v.reference.toLowerCase().startsWith(term.toLocaleLowerCase())
         ).splice(0, 10));
 
   formatEntity = (x: {callSign: string}) => x.callSign;
 
   legalEntitySelected(item) {
-    console.log(item.item);
-    this.ravagoEntityChanged.emit(item.item);
+    this.ravagoEntityChanged.emit(new RavagoEntity(item.item.ID, item.item.callSign));
   }
 }

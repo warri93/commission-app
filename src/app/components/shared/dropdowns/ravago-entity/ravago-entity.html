@@ -3,21 +3,21 @@
 </template>
 
 <div [formGroup]="form">
-  <input id="typeahead-search-legal-entity"
-         name="legalEntity"
-         type="text"
-         class="form-control"
-         formControlName="ravagoEntity"
-         [class.errors]="ravagoEntity.hasError('*', ['touched'])"
-         [(ngModel)]="legalEntity"
-         [ngbTypeahead]="searchLegalEntity"
-         [resultTemplate]="entityTemplate"
-         [inputFormatter]="formatEntity"
-         (selectItem)="legalEntitySelected($event)"/>
+    <input id="typeahead-search-legal-entity"
+           #typeahead
+           name="legalEntity"
+           type="text"
+           class="form-control"
+           formControlName="ravagoEntity"
+           [class.errors]="ravagoEntity.hasError('*', ['touched'])"
+           [ngbTypeahead]="searchLegalEntity"
+           [resultTemplate]="entityTemplate"
+           [inputFormatter]="formatEntity"
+           (selectItem)="legalEntitySelected($event)"/>
 
-  <div ngxErrors="ravagoEntity" #ravagoEntity="ngxErrors">
-    <div class="error" ngxError="required" [when]="['touched']">
-      Ravago Entity is required
+    <div ngxErrors="ravagoEntity" #ravagoEntity="ngxErrors">
+      <div class="error" ngxError="required" [when]="['touched']">
+        Ravago Entity is required
+      </div>
     </div>
-  </div>
 </div>

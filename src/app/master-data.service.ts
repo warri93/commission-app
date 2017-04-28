@@ -25,6 +25,7 @@ export interface DeliveryAddress {
 }
 
 import {environment} from "../environments/environment";
+import {RavagoEntity} from "./models/ravago-entity";
 
 @Injectable()
 export class MasterDataService {
@@ -46,7 +47,14 @@ export class MasterDataService {
   getLegalEntities(): Observable<[{}]> {
     this.options.headers = environment.BLUE_HEADERS;
 
-    return this.http.get(environment.OHM_MASTERDATA_URL + environment.COMPANY_SERVICE + "?type=LegalEntity", this.options).map(res => res.json()).catch(this.handleError);
+    return this.http.get(environment.OHM_MASTERDATA_URL + environment.COMPANY_SERVICE + "?type=LegalEntity", this.options).map(res => this.extractLegalEntity(res)).catch(this.handleError);
+  }
+  private extractLegalEntity(res) {
+    let body = res.json();
+    for(let i = 0; i < body.length; i++) {
+      body[i] = new RavagoEntity(body[i].ID, body[i].callSign);
+    }
+    return body || {};
   }
 
   getCustomers(): [{}] {

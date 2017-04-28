@@ -17,6 +17,13 @@ export class AssignmentService {
       .catch(this.handleError);
   }
 
+  saveDefaultAssignmentRule(assignmentRule) {
+    let url = environment.COMMISSION_BACKEND_URL + "rules";
+    return this.http.post(url, assignmentRule)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message : error.status ? error.status - error.statusText : 'Server error';
     console.error("server error :" + errMsg); // log to console instead

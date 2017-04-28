@@ -3,9 +3,9 @@ export class CreatorPerson {
   firstName: string;
   familyName: string;
 
-  constructor () {
-    this.reference = "";
-    this.firstName = "";
-    this.familyName = "";
+  constructor (reference?: string, firstName?: string, familyName?: string) {
+    this.reference = reference;
+    this.firstName = firstName;
+    this.familyName = familyName;
   }
 }

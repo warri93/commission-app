@@ -9,7 +9,7 @@
               <span>Legal Entity *</span>
             </div>
             <div class="input">
-              <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)" [form]="newRefinementRule"></ravago-entity-dropdown>
+              <ravago-entity-dropdown [form]="newRefinementRule" (ravagoEntityChanged)="ravagoEntityChanged($event)" ></ravago-entity-dropdown>
             </div>
           </div>
         </div>
@@ -20,7 +20,7 @@
               <span>Customer *</span>
             </div>
             <div class="input">
-              <customer-dropdown (customerChanged)="customerChanged($event)" [form]="newRefinementRule"></customer-dropdown>
+              <customer-dropdown [form]="newRefinementRule" (customerChanged)="customerChanged($event)"></customer-dropdown>
             </div>
           </div>
         </div>

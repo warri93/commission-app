@@ -30,21 +30,15 @@ export class CustomerDropdown implements OnInit{
     this.customers = [
       {
         callSign: "sdlk",
-        ID: "lsfkdj",
-        localName: "lskdfj",
-        name: "ldslkfj"
+        reference: "lsfkdj"
       },
       {
         callSign: "sdlk",
-        ID: "lsfkdj",
-        localName: "lskdfj",
-        name: "ldslkfj"
+        reference: "lsfkdj"
       },
       {
         callSign: "sdlk",
-        ID: "lsfkdj",
-        localName: "lskdfj",
-        name: "ldslkfj"
+        reference: "lsfkdj"
       }
     ]
   }
@@ -56,14 +50,13 @@ export class CustomerDropdown implements OnInit{
       .map(term => term.length < 1 ? []
         : this.customers.filter(v =>
           v.callSign.toLowerCase().startsWith(term.toLocaleLowerCase()) ||
-          v.ID.toLowerCase().startsWith(term.toLocaleLowerCase()) ||
-          (v.localName ? v.localName.toLowerCase().startsWith(term.toLocaleLowerCase()) : '') ||
-          v.name.toLowerCase().startsWith(term.toLocaleLowerCase())
+          v.reference.toLowerCase().startsWith(term.toLocaleLowerCase())
         ).splice(0, 10));
 
   formatCustomer = (x: {callSign: string}) => x.callSign;
 
   customerSelected(item) {
+    console.log("customer selected");
     this.customerChanged.emit(item.item);
   }
 }
