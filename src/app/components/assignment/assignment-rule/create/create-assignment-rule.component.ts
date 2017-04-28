@@ -44,8 +44,8 @@ export class CreateAssignmentRule implements OnInit {
       ravagoEntity: new FormControl(new RavagoEntity(), Validators.required),
       assignmentValues: this.fb.group({
         period: this.fb.group({
-          startDate: new FormControl(new Date(0), Validators.required),
-          endDate: new FormControl(new Date(0))
+          startDate: new FormControl("", Validators.required),
+          endDate: new FormControl("")
         }),
         assignees: this.fb.array([
           this.createAssignee()
@@ -85,7 +85,7 @@ export class CreateAssignmentRule implements OnInit {
     return this.fb.group({
       salesVolumePercentage: new FormControl("", Validators.required),
       commissionPercentage: new FormControl("", Validators.required),
-      salesPerson: new FormControl(new SalesPerson())
+      salesPerson: new FormControl(new SalesPerson(), Validators.required)
     })
   }
 

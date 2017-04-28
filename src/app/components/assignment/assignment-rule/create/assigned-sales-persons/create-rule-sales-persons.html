@@ -4,12 +4,11 @@
 
 <div class="form-set" [formGroup]="newRule">
   <div class="col-m-12">
-    <div formGroupName="assignmentValues">
-      <div formArrayName="assignees">
+    <div>
+      <div>
         <div
-          *ngFor="let control of newRule.controls.assignmentValues.controls.assignees.controls; let i = index"
-          [formGroupName]="i">
-          <div class="grid-row grid-gutter">
+          *ngFor="let control of newRule.controls.assignmentValues.controls.assignees.controls; let i = index">
+          <div class="grid-row grid-gutter" [formGroup]="newRule.controls.assignmentValues.controls.assignees.controls[i]">
             <div class="col-m-4 col-l-4 offset-2">
               <div class="form-field-set">
                 <div class="label">
@@ -19,10 +18,18 @@
                   <input id="typeahead-search-sales-person"
                          type="text"
                          class="form-control"
+                         [class.errors]="salesPerson.hasError('*', ['touched'])"
+                         formControlName="salesPerson"
+                         [(ngModel)]="sp"
                          (selectItem)="salesPersonSelected($event, i)"
                          [ngbTypeahead]="searchSalesPerson"
                          [resultTemplate]="salesPersonTemplate"
                          [inputFormatter]="formatSalesPerson"/>
+                </div>
+                <div ngxErrors="salesPerson" #salesPerson="ngxErrors">
+                  <div class="error" ngxError="required" [when]="['touched']">
+                    salesPerson is required
+                  </div>
                 </div>
               </div>
             </div>
@@ -38,7 +45,13 @@
                          type="number"
                          formControlName="salesVolumePercentage"
                          class="form-control"
-                         (blur)="recalculateSalesVolumeTotal()"/>
+                         [class.errors]="salesVolumePercentage.hasError('*', ['touched'])"
+                         (blur)="recalculateSalesVolumeTotal($event.target.value)"/>
+                  <div ngxErrors="salesVolumePercentage" #salesVolumePercentage="ngxErrors">
+                    <div class="error" ngxError="required" [when]="['touched']">
+                      Sales Volume % is required
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -54,7 +67,13 @@
                          type="number"
                          formControlName="commissionPercentage"
                          class="form-control"
-                         (blur)="recalculateCommissionTotal()"/>
+                         [class.errors]="commissionPercentage.hasError('*', ['touched'])"
+                         (blur)="recalculateCommissionTotal($event.target.value)"/>
+                  <div ngxErrors="commissionPercentage" #commissionPercentage="ngxErrors">
+                    <div class="error" ngxError="required" [when]="['touched']">
+                      Commission % is required
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

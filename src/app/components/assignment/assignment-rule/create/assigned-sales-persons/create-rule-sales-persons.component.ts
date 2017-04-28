@@ -74,7 +74,11 @@ export class CreateRuleSalesPersons implements OnInit {
     })
   }
 
-  recalculateCommissionTotal() {
+  recalculateCommissionTotal(value) {
+    if(value === "") {
+      return;
+    }
+
     let commissionPercentage = 0;
 
     let assignees = this.newRule.get('assignmentValues').get('assignees').value;
@@ -85,7 +89,11 @@ export class CreateRuleSalesPersons implements OnInit {
     this.commissionTotal = commissionPercentage / 100;
   }
 
-  recalculateSalesVolumeTotal() {
+  recalculateSalesVolumeTotal(value) {
+    if(value === "") {
+      return;
+    }
+
     let salesVolumePercentage = 0;
 
     let assignees = this.newRule.get('assignmentValues').get('assignees').value;
