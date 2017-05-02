@@ -41,19 +41,23 @@ export class CreateAssignmentRule implements OnInit {
   }
 
   ngOnInit() {
+    let now = new Date();
     this.newRule = this.fb.group({
-      creatorPerson: new FormControl(new CreatorPerson("666", "Melissa", "Warrens"), Validators.required),
+      creatorPerson: new FormControl(new CreatorPerson("149483", "Sander", "Martens"), Validators.required),
       customer: new FormControl("", Validators.required),
       ravagoEntity: new FormControl("", Validators.required),
-      assignmentValues: this.fb.group({
-        period: this.fb.group({
-          startDate: new FormControl("", Validators.required),
-          endDate: new FormControl("")
-        }),
-        assignees: this.fb.array([
-          this.createAssignee()
-        ])
-      })
+      assignmentValues: this.fb.array([
+        this.fb.group({
+          period: this.fb.group({
+            startDate: new FormControl({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()}, Validators.required),
+            endDate: new FormControl("")
+          }),
+          assignees: this.fb.array([
+            this.createAssignee()
+          ]),
+          owner: new FormControl("")
+        })
+      ])
     });
 
     console.log(this.newRule);
@@ -110,10 +114,19 @@ export class CreateAssignmentRule implements OnInit {
 
   confirmRule() {
     console.log("Confirm refinement");
+    let assignmentValues = this.newRule.get('assignmentValues').value;
+    assignmentValues.forEach(function (assignementValue, index) {
+      console.log(index);
+      let startDate = assignementValue.period.startDate;
+      this.newRule.get('assignmentValues').value[index].period.startDate = startDate.year + "-" + startDate.month + "-" + startDate.day;
+      delete this.newRule.get('assignmentValues').value[index].period.endDate;
+      this.newRule.get('assignmentValues').value[index].owner = {
+        "reference": "113040",
+        "firstName": "Stuart",
+        "familyName": "Portman"
+      };
+    }, this);
     console.log(this.newRule);
-    let startDate = this.newRule.value.assignmentValues.period.startDate;
-    delete this.newRule.value.assignmentValues.period.endDate;
-    this.newRule.value.assignmentValues.period.startDate = startDate.year + "-" + startDate.month + "-" + startDate.day;
     this.assignmentService.saveDefaultAssignmentRule(this.newRule.value).subscribe();
   }
 

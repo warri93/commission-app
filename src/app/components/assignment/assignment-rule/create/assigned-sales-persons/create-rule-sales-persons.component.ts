@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {FormArray, FormControl, FormBuilder} from "@angular/forms";
+import {FormArray, FormGroup, FormControl, FormBuilder} from "@angular/forms";
 import {SalesPerson} from "../../../../../models/salesPerson";
+import {Assignee} from "../../../../../models/assignee";
 
 @Component({
   selector: 'create-rule-sales-persons',
@@ -20,11 +21,12 @@ export class CreateRuleSalesPersons implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.newRule);
     this.salesPersons = [
       {
-        "reference": "113047",
-        "firstName": "Robert",
-        "familyName": "O'Donnell"
+        "reference": "113040",
+        "firstName": "Stuart",
+        "familyName": "Portman"
       },
       {
         "reference": "234",
@@ -51,37 +53,45 @@ export class CreateRuleSalesPersons implements OnInit {
 
   formatSalesPerson = (x: {firstName: string, familyName: string}) => x.firstName + " " + x.familyName;
 
-  addSalesPerson() {
-    const control = this.newRule.get('assignmentValues').get('assignees') as FormArray;
+  addSalesPerson(assignmentValueIndex) {
+    /*this.newRule.controls.assignmentValues.controls[assignmentValueIndex].controls.assignees.controls.push(this.createAssignee());*/
+    /*const control = this.newRule.value.assignmentValues[assignmentValueIndex].assignees as FormArray;
+    console.log(control);
     control.push(this.createAssignee());
+    console.log(this.newRule);*/
   }
 
-  deleteSalesPerson(index) {
-    const assignees = this.newRule.get('assignmentValues').get('assignees') as FormArray;
-    assignees.removeAt(index);
-    console.log(this.newRule.get('assignmentValues').get('assignees').value);
+  deleteSalesPerson(assignmentValueIndex, assigneeIndex) {
+    /*console.log(assignmentValueIndex);
+    console.log(assigneeIndex);
+    console.log(this.newRule.value.assignmentValues[assignmentValueIndex].assignees);
+    const assignees = this.newRule.value.assignmentValues[assignmentValueIndex].assignees as FormArray;
+    assignees.removeAt(assigneeIndex);*/
+    /*const assignees = this.newRule.controls.assignmentValues.controls[assignmentValueIndex].controls.assignees.controls as FormGroup;
+    console.log(assignees);
+    assignees.removeControl(assigneeIndex);*/
   }
 
-  salesPersonSelected(item, index) {
-    this.newRule.get('assignmentValues').get('assignees').value[index].salesPerson = item.item;
+  salesPersonSelected(item, assignmentValueIndex, assigneeIndex) {
+    this.newRule.get('assignmentValues').value[assignmentValueIndex].assignees[assigneeIndex].salesPerson = item.item;
   }
 
   createAssignee() {
     return this.fb.group({
       salesVolumePercentage: new FormControl(""),
       commissionPercentage: new FormControl(""),
-      salesPerson: new FormControl(new SalesPerson())
+      salesPerson: new FormControl("")
     })
   }
 
-  recalculateCommissionTotal(value) {
+  recalculateCommissionTotal(index, value) {
     if(value === "") {
       return;
     }
 
     let commissionPercentage = 0;
 
-    let assignees = this.newRule.get('assignmentValues').get('assignees').value;
+    let assignees = this.newRule.get('assignmentValues').value[index].assignees;
     assignees.forEach(function(assignee) {
       commissionPercentage += assignee.commissionPercentage
     });
@@ -89,14 +99,14 @@ export class CreateRuleSalesPersons implements OnInit {
     this.commissionTotal = commissionPercentage / 100;
   }
 
-  recalculateSalesVolumeTotal(value) {
+  recalculateSalesVolumeTotal(index, value) {
     if(value === "") {
       return;
     }
 
     let salesVolumePercentage = 0;
 
-    let assignees = this.newRule.get('assignmentValues').get('assignees').value;
+    let assignees = this.newRule.get('assignmentValues').value[index].assignees;
     assignees.forEach(function(assignee) {
       salesVolumePercentage += assignee.salesVolumePercentage
     });

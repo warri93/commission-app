@@ -19,7 +19,8 @@
                      [inputFormatter]="formatEntity"
                      (selectItem)="legalEntitySelected()"/>-->
               <!--<input class="form-control">-->
-              <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)" [form]="newRule"></ravago-entity-dropdown>
+              <ravago-entity-dropdown (ravagoEntityChanged)="ravagoEntityChanged($event)"
+                                      [form]="newRule"></ravago-entity-dropdown>
             </div>
           </div>
         </div>
@@ -65,8 +66,10 @@
       <!-- Legal : End -->
 
       <!-- Customer : Start -->
-      <div class="grid-row grid-gutter" [formGroup]="newRule.controls.assignmentValues.controls.period">
-        <div class="col-m-2 col-l-2 offset-2">
+      <div class="grid-row grid-gutter"
+           *ngFor="let control of newRule.controls.assignmentValues.controls; let i = index">
+        <div class="col-m-2 col-l-2 offset-2"
+             [formGroup]="newRule.controls.assignmentValues.controls[i].controls.period">
           <div class="form-field-set">
             <div class="label">
               <span>Valid Period From *</span>
@@ -77,9 +80,10 @@
                        placeholder="yyyy-mm-dd"
                        formControlName="startDate"
                        ngbDatepicker
+                       disabled="true"
                        #validDateFromDatePicker="ngbDatepicker"
                        [class.errors]="startDate.hasError('*', ['touched'])">
-                <div class="input-group-addon" (click)="validDateFromDatePicker.toggle()">
+                <div class="input-group-addon">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
                 </div>
               </div>
@@ -92,7 +96,7 @@
           </div>
         </div>
 
-        <div class="col-m-2 col-l-2">
+        <div class="col-m-2 col-l-2" [formGroup]="newRule.controls.assignmentValues.controls[i].controls.period">
           <div class="form-field-set">
             <div class="label">
               <span>Valid Period To</span>

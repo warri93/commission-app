@@ -5,14 +5,15 @@
 <div class="form-set" [formGroup]="newRule">
   <div class="col-m-12">
     <div>
-      <div>
+      <div *ngFor="let assignmentValue of newRule.controls.assignmentValues.controls; let i = index">
         <div
-          *ngFor="let control of newRule.controls.assignmentValues.controls.assignees.controls; let i = index">
-          <div class="grid-row grid-gutter" [formGroup]="newRule.controls.assignmentValues.controls.assignees.controls[i]">
+          *ngFor="let control of newRule.controls.assignmentValues.controls[i].controls.assignees.controls; let j = index">
+          <div class="grid-row grid-gutter"
+               [formGroup]="newRule.controls.assignmentValues.controls[i].controls.assignees.controls[j]">
             <div class="col-m-4 col-l-4 offset-2">
               <div class="form-field-set">
                 <div class="label">
-                  <span>Sales Person *</span>
+                  <span>Sales Person</span>
                 </div>
                 <div class="input">
                   <input id="typeahead-search-sales-person"
@@ -21,7 +22,7 @@
                          [class.errors]="salesPerson.hasError('*', ['touched'])"
                          formControlName="salesPerson"
                          [(ngModel)]="sp"
-                         (selectItem)="salesPersonSelected($event, i)"
+                         (selectItem)="salesPersonSelected($event, i, j)"
                          [ngbTypeahead]="searchSalesPerson"
                          [resultTemplate]="salesPersonTemplate"
                          [inputFormatter]="formatSalesPerson"/>
@@ -46,7 +47,7 @@
                          formControlName="salesVolumePercentage"
                          class="form-control"
                          [class.errors]="salesVolumePercentage.hasError('*', ['touched'])"
-                         (blur)="recalculateSalesVolumeTotal($event.target.value)"/>
+                         (blur)="recalculateSalesVolumeTotal(i, $event.target.value)"/>
                   <div ngxErrors="salesVolumePercentage" #salesVolumePercentage="ngxErrors">
                     <div class="error" ngxError="required" [when]="['touched']">
                       Sales Volume % is required
@@ -68,7 +69,7 @@
                          formControlName="commissionPercentage"
                          class="form-control"
                          [class.errors]="commissionPercentage.hasError('*', ['touched'])"
-                         (blur)="recalculateCommissionTotal($event.target.value)"/>
+                         (blur)="recalculateCommissionTotal(i, $event.target.value)"/>
                   <div ngxErrors="commissionPercentage" #commissionPercentage="ngxErrors">
                     <div class="error" ngxError="required" [when]="['touched']">
                       Commission % is required
@@ -83,10 +84,25 @@
                 <div class="label">
 
                 </div>
-                <button class="button button-default button-icon button-large" (click)="deleteSalesPerson(i)">
+                <button class="button button-default button-icon button-large"
+                        (click)="deleteSalesPerson(i, j)">
                   <i class="fa fa-trash"></i>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-row grid-gutter">
+          <div class="col-m-2 col-l-2">
+            <div class="form-field-set">
+              <div class="label">
+
+              </div>
+              <button class="button button-default button-icon button-large group-align-right"
+                      (click)="addSalesPerson(i)">
+                <i class="blue-Add"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -98,9 +114,9 @@
             <div class="label">
 
             </div>
-            <button class="button button-default button-icon button-large group-align-right" (click)="addSalesPerson()">
-              <i class="blue-Add"></i>
-            </button>
+            <!-- <button class="button button-default button-icon button-large group-align-right" (click)="addSalesPerson()">
+               <i class="blue-Add"></i>
+             </button>-->
           </div>
         </div>
 

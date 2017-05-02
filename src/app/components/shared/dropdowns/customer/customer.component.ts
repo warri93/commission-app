@@ -29,8 +29,8 @@ export class CustomerDropdown implements OnInit{
   getCustomers() {
     this.customers = [
       {
-        callSign: "sdlk",
-        reference: "lsfkdj"
+        callSign: "UNITED COMB & NOVELTY CORP",
+        reference: "627721"
       },
       {
         callSign: "sdlk",
